@@ -1,0 +1,70 @@
+ @startuml
+class CharacterManager <<S,Singleton>> {
+	- pirateList : ArrayList<Pirate>
+	- monkeyList : ArrayList<Monkey>
+	- initMonkeys() : void
+	+ getPirateFromPort(int) : Pirate
+	- subscribeNewPirate(int) : void
+	- removePirate(int) : void
+	- isPirateAlreadyInList(int) : boolean
+	+ remakeAllPiratePosition() : void
+	+ getNumberOfPirateAlive() : int
+	+ onNewConnection() : void
+	+ onInitAll() : void
+	+ onPirateSubscribed(int) : void
+	+ onPirateDead(Pirate) : void
+	+ onRumDrunk(Rum) : void
+	+ onRumReappear(Rum) : void
+	+ onTreasureFound(Treasure) : void
+	+ onRemovePirate(int) : void
+}
+
+abstract Character{
+	- position : Position
+	- characterType : CharacterType
+	- state : State
+	+ Character(Position, CharacterType)
+}
+
+enum State {
+	+ DEAD : State
+	+ DRUNK : State
+	+ NORMAL : State
+}
+
+enum CharacterType {
+	+ PIRATE : CharacterType
+	+ MONKEY : CharacterType
+}
+
+class Pirate {
+	- port : int
+	- energy : Energy
+	+ Pirate(Position, int, Energy)
+}
+
+class Energy {
+	- value : int
+	+ Energy(int)
+}
+
+class Monkey {
+	+ Monkey(Position, MonkeyType)
+}
+
+enum MonkeyType {
+	+ MonkeyType : ERRATIC
+	+ MonkeyType : HUNTER
+}
+
+CharacterManager -up-"0..*"Pirate
+
+Monkey --"1" MonkeyType
+
+Character <|-- Pirate
+Character <|-- Monkey
+Character -left-"1" CharacterType
+Character --"1" State
+CharacterManager -up- "0..*"Monkey
+Pirate --"1" Energy
+@enduml

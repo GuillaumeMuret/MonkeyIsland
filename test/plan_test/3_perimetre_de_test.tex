@@ -1,0 +1,239 @@
+%--------------------------------------
+% III Périmètre de test
+%--------------------------------------
+
+\chapter{Périmètre de test}
+	\section{Composants}
+		\subsection{Composants concernés par les tests}
+		
+Seront concernés par l'activité de test les composants logiciels développés durant le projet : 
+\begin{itemize}
+\item[-]\textbf{Serveur} : le logiciel serveur.
+\end{itemize}
+
+
+		\subsection{Composants non concernés par les tests}
+		
+Les supports d'exécutions matériels ne seront pas concernés par les tests.
+
+Les supports d'exécutions logiciels suivant ne seront pas concernés par les tests:
+\begin{itemize}
+\item[-]\textbf{Le client}, en effet, seul le serveur est testé.\\
+\end{itemize}
+
+Les supports de communication matériels suivant ne seront pas concernés par les tests: 
+\begin{itemize}
+\item[-]\textbf{Le réseau de l'école.}\\
+\end{itemize}
+
+Les supports de communication logiciels: 
+\begin{itemize}
+\item[-]\textbf{la pile TCP/IP.}
+\end{itemize}
+\newpage
+		
+	\section{Fonctionnalités}
+	\label{refpFonctionnalités}
+
+	\subsection{Incrément 1}
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Fonctionnalités à tester} & \textbf{Testé} & \textbf{Validation} \\\hline
+Déplacement des singes erratiques			& oui & A \\\hline
+Gestion des pirates (déplacement et décès)	& oui & A \\\hline
+%Gestion du fichier de configuration & TODO & - \\\hline
+\end{tabular}
+\end{center}
+\caption{Table des fonctionnalités testées pour l'incrément 1}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Déplacement des singes erratiques} & \textbf{Testé} & \textbf{Validation} \\
+\hline
+Déplacement ok terre vide H-B-G-D			& oui & A\\\hline
+Pas de déplacement en diagonale terre vide	& oui & A\\\hline
+Obligation de déplacement terre vide		& oui & A\\\hline
+Pas de déplacement possible (mer)			& oui & A\\\hline
+Pas de déplacement possible (erratiques)	& oui & A\\\hline
+Pas de déplacement possible (chasseurs)		& oui & A\\\hline
+Déplacement ok - trésor caché -> caché		& oui & A\\\hline
+Déplacement ok - pirate vivant -> mort		& oui & A\\\hline
+Déplacement ok - pirate mort -> mort		& oui & A\\\hline
+Déplacement ok - rhum dispo -> dispo		& oui & A\\\hline
+Equiprobabilité pour 4						& oui & A\\\hline
+Equiprobabilité pour 3						& oui & A\\\hline
+Equiprobabilité pour 2						& oui & A\\\hline
+Non équiprobabilité stricte pour 4			& oui & A\\\hline
+Non équiprobabilité stricte pour 3			& oui & A\\\hline
+Non équiprobabilité stricte pour 2			& oui & A\\\hline
+Schéma non répétitif pour 4					& oui & B+\\\hline
+Schéma non répétitif pour 3					& oui & B+\\\hline
+Schéma non répétitif pour 2					& oui & B+\\\hline
+Pas de déplacement "nuageux"				& oui & B+\\\hline
+\end{tabular}
+\end{center}
+\caption{Table des tests liés au déplacement des singes erratiques}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Gestion des pirates (déplacement et décès) } & \textbf{Testé} & \textbf{Validation} \\\hline
+Déplacement ok terre vide H-B-G-D				& oui & A \\\hline
+Pas de déplacement en diagonale terre vide		& oui & A \\\hline
+Pas de déplacement si instruction = 0-0			& oui & A \\\hline
+Pas de déplacement possible (mer)				& oui & A \\\hline
+Pas de déplacement possible (pirate)			& oui & A \\\hline
+Pas de déplacement possible (vide)				& oui & A \\\hline
+Pas de déplacement hors carte					& oui & A \\\hline
+Déplacement sur singe erratique -> mort			& oui & A \\\hline
+Déplacement sur singe chasseur -> mort			& oui & A \\\hline
+Pas de déplacement si mort, case terre			& oui & A \\\hline
+Pas de déplacement si mort, case terre et rhum	& oui & A \\\hline
+Pas de résurrection d'un pirate mort lors de réapparition de rhum	& oui & A \\\hline
+Déplacement sur trésor -> découverte trésor et fin de partie		& oui & A \\\hline
+Déplacement sur trésor et singe -> découverte trésor, fin de partie et mort & oui & A \\\hline
+
+\end{tabular}
+\end{center}
+\caption{Table des tests liés à la gestion des pirates (déplacement et décès) }
+\end{table}
+
+\newpage
+	\subsection{Incrément 2}
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Fonctionnalités à tester} & \textbf{Testé} & \textbf{Validation} \\
+\hline
+Communication client-serveur & oui & A \\\hline
+Gestion de l’énergie de chaque pirate & oui & A \\\hline
+\end{tabular}
+\end{center}
+\caption{Table des fonctionnalités testées pour l'incrément 2}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Communication client-serveur} & \textbf{Testé} & \textbf{Validation} \\\hline
+Inscription du pirate							& oui & A \\\hline
+Déplacements HBGD (4tests)						& oui & A \\\hline
+NON-Déplacement de 2 cases HBGD (4tests)		& oui & A \\\hline
+NON-Déplacement en diagonale (4tests)			& oui & A \\\hline
+NON-Déplacement de 2 cases en diagonale (4tests) & oui & A \\\hline
+\end{tabular}
+\end{center}
+\caption{Table des tests liés à la communication client-serveur}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Gestion de l’énergie de chaque pirate} & \textbf{Testé} & \textbf{Validation} \\\hline
+Mort sans énergie & oui & A \\\hline
+Déplacement sur rhum -> énergie<ENERGIE\_MAX	& oui & A \\\hline
+Déplacement sur rhum -> énergie>ENERGIE\_MAX	& oui & A \\\hline
+Déplacement sur rhum -> énergie=ENERGIE\_MAX	& oui & A \\\hline
+\end{tabular}
+\end{center}
+\caption{Table des tests liés à la gestion de l’énergie de chaque pirate}
+\end{table}
+
+\newpage
+	\subsection{Incrément 3}
+\begin{table}[!h]
+\begin{center}		
+\begin{tabular}{|p{10cm}|c|c|}%{|p{6,3cm}|p{2,7cm}|p{4cm}|}
+\hline
+\textbf{Fonctionnalités à tester} & \textbf{Testé} & \textbf{Validation} \\\hline
+Gestion des parties					& oui & A \\\hline
+Gestion des singes chasseurs		& oui & A \\\hline
+Gestion de l’alcoolémie du pirate	& oui & A \\\hline
+\end{tabular}
+\end{center}
+\caption{Table des fonctionnalités testées pour l'incrément 3}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Gestion des parties} & \textbf{Testé} & \textbf{Validation} \\\hline
+Partie finie -> redémarre si le pirate va sur le trésor & oui & A \\\hline
+Partie finie si plus de pirate sur la carte & oui(visuel) & A \\\hline
+Partie finie -> redémarre si plus de pirate vivant sur la carte & oui(visuel) & A \\\hline
+\end{tabular}
+\end{center}
+\caption{Table des tests liés à la gestion des parties}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Gestion des singes chasseurs} & \textbf{Testé} & \textbf{Validation} \\\hline
+Déplacement ok terre vide H-B-G-D 			& oui & A \\\hline
+Pas de déplacement en diagonale terre vide 	& oui & A \\\hline
+Obligation de déplacement terre vide 		& oui & A \\\hline
+Pas de déplacement possible (mer) 			& oui & A \\\hline
+Pas de déplacement possible (erratiques)	& oui & A \\\hline
+Pas de déplacement possible (chasseurs)		& oui & A \\\hline
+Déplacement ok - trésor caché -> caché		& oui & A \\\hline
+Déplacement ok - rhum dispo -> dispo		& oui & A \\\hline
+Déplacement suis le pirate					& oui & A \\\hline
+Déplacement ok - pirate vivant -> mort		& oui & A \\\hline
+Déplacement ok - pirate mort -> mort		& oui & A \\\hline
+\end{tabular}
+\end{center}
+\caption{Table des tests liés à la gestion des singes chasseurs}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{|p{10cm}|c|c|}
+\hline
+\textbf{Gestion de l’alcoolémie du pirate} & \textbf{Testé} & \textbf{Validation} \\\hline
+Sobre sur rhum (visible) -> énergie>MAX -> en ébriété				& oui & A \\\hline
+Sobre sur rhum (invisible) -> énergieNoChange -> PAS en ébriété		& oui & A \\\hline
+En ébriété sur rhum (visible) -> en ébriété							& oui & A \\\hline
+En ébriété sur rhum (invisible) -> énergie>MAX -> en ébriété		& oui & A \\\hline
+En ébriété sur rhum (invisible) -> énergie=MAX -> PAS en ébriété	& oui & A \\\hline
+Pirate sur rhum invisible -> visible -> énergie++					& oui & A \\\hline
+En ébriété : Probabilité < 1 d'aller là où le joueur demande			& oui & B+ \\\hline
+\end{tabular}
+\end{center}
+\caption{Table des tests liés à la gestion de l’alcoolémie du pirate}
+\end{table}
+
+\newpage
+		
+	\section{Critères d'acceptation des tests}
+	
+Pour juger de la performance d’un test nous utiliserons le système de notation suivant :
+
+\begin{table}[!h]
+\begin{center}	
+\begin{tabular}{|p{2cm}|p{9cm}|}
+\hline
+\textbf{Note} & \textbf{Résultats pour des tests nominaux}\\
+\hline
+A & Entre 80\% et 100\% de réussite\\
+\hline
+B & Entre 50\% et 80\%(exclus) de réussite\\
+\hline
+C & Moins de 50\% de réussite\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table des critères d'acceptation des tests Nominaux}
+\end{table}

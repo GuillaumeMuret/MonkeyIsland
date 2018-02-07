@@ -1,0 +1,8 @@
+@startuml
+
+class ProcessIn {
+	+ SUBSCRIBE_PIRATE = "/I"
+	+ MOVE_PIRATE = "/D"
+}
+
+@enduml

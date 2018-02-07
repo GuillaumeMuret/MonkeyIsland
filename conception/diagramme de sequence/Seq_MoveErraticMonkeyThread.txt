@@ -1,0 +1,15 @@
+@startuml
+
+title moveErraticMonkeyThread
+
+ref over CharacterManager : askMoveErraticMonkey()
+
+CharacterManager -> Communication : sendBroadcastErraticMonkeyPosition(monkeyList)
+ref over CharacterManager : eventWhenMoveMonkey()
+
+group after[TW_SPEED_ERRATIC_MONKEY]
+opt !interruptMonkeyThread
+CharacterManager -> CharacterManager : relaunchThread()
+end
+end
+@enduml

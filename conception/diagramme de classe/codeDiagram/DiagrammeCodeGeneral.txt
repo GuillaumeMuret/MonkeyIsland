@@ -1,0 +1,282 @@
+@startuml
+title Diagramme de classe du code
+
+package monkeyisland {
+	package controller {
+		class AbstractManager <<Abstract>>{
+    
+		}
+		class Brain <<Singleton>> {
+		    
+		}
+		class CharacterManager <<Singleton>> {
+		    
+		}
+		interface IGameEvent {
+		    
+		}
+		class MapManager <<Singleton>> {
+		    
+		}
+		class ObjectManager <<Singleton>> {
+		    
+		}
+	}
+	package utils {
+	    class CommunicationUtils{
+	        
+	    }
+	    class FileUtils{
+	        
+	    }
+	    class LogUtils{
+	        
+	    }
+	    class PositionUtils {
+
+		}
+	}
+	package communication {
+		package distribution {
+			interface ICommandFromClient {
+
+			}
+
+			class MovePirate {
+
+			}
+
+			class SubscribePirate {
+
+			}
+		}
+
+		package protocole{
+			class ProcessIn{
+			    
+			}
+
+			class ProcessOut{
+			    
+			}
+
+			class ProtocolVocabulary{
+			    
+			}
+	    }
+
+	    package proxy {
+	    	package encoder{
+	    		class AbstractEncoder <<Abstract>>{
+			    
+				}
+
+				class ErraticMonkeyPosition{
+				    
+				}
+
+				class HunterMonkeyPosition{
+				    
+				}
+
+				class IdNewPirateSubscribe{
+				    
+				}
+
+				class MoveAccepted{
+				    
+				}
+
+				class MoveRefused{
+				    
+				}
+
+				class NewGame{
+				    
+				}
+
+				class NewPirateOnMap{
+				    
+				}
+
+				class OtherPiratePosition{
+				    
+				}
+
+				class PirateMoved{
+				    
+				}
+
+				class PirateRemoved{
+				    
+				}
+
+				class RumPosition{
+				    
+				}
+
+				class RumVisibility{
+				    
+				}
+
+				class SetMap{
+				    
+				}
+
+				class TreasureFound{
+				    
+		    	} 
+		    } 
+		    class Proxy{
+	    
+			}
+			class ProxyClient <<Singleton>> {
+			    
+			}
+			class ProxyModel <<Abstract>>{
+			    
+			}  
+	    }
+	    package socket {
+			class AbstractSocket <<Abstract>> {
+			    
+			}
+			class ServerSocketCommunication {
+			    
+			}
+			class ServerSocketConnexion {
+			    
+			}
+			class SocketMessage {
+			    
+			}
+	    }
+	    class Communication <<Singleton>> {
+	    
+		}
+		class Distributor <<Singleton>> {
+		    
+		}
+		interface ISocketState{
+		    # onSocketConnected(int port)
+		}
+		class PostmanServer <<Singleton>> {
+		    
+		}
+	}
+	package model {
+    	package constant {
+    		class Constant {
+		    
+			}
+			class GameConfig <<Singleton>> {
+			    
+			}
+		}
+		package game {
+		   	package attribute {
+			    class Energy {
+			    
+				}
+			}
+			
+			package character {
+			 	class Character <<Abstract>> {
+			    
+				}
+				class Monkey {
+				    
+				}
+				class Pirate {
+				    
+				}   
+			}
+			package map {
+			    class Map <<Singleton>> {
+			    
+				}
+				class Square {
+			    
+				}
+			}
+			package object {
+				class GameObject <<Abstract>> {
+			    
+				}
+				class Rum {
+				    
+				}
+				class Treasure {
+				    
+				}    
+			}
+			package position {
+			    class Position {
+			    
+				}
+			}
+		}
+    }
+}
+
+model ---[hidden]--- controller
+communication ---[hidden]--- model
+socket --[hidden]-- proxy
+
+AbstractSocket <|-- ServerSocketCommunication 
+AbstractSocket <|-- ServerSocketConnexion 
+
+AbstractEncoder <|-- ErraticMonkeyPosition 
+AbstractEncoder <|-- HunterMonkeyPosition 
+AbstractEncoder <|-- IdNewPirateSubscribe 
+AbstractEncoder <|-- MoveAccepted 
+AbstractEncoder <|-- MoveRefused 
+AbstractEncoder <|-- NewGame 
+AbstractEncoder <|-- NewPirateOnMap 
+AbstractEncoder <|-- OtherPiratePosition 
+AbstractEncoder <|-- PirateMoved 
+AbstractEncoder <|-- PirateRemoved 
+AbstractEncoder <|-- RumPosition 
+AbstractEncoder <|-- RumVisibility 
+AbstractEncoder <|-- SetMap 
+AbstractEncoder <|-- TreasureFound 
+
+ProxyModel <|-- ProxyClient
+
+AbstractManager <|-- CharacterManager 
+AbstractManager <|-- MapManager 
+AbstractManager <|-- ObjectManager 
+
+GameObject <|-- Rum
+GameObject <|-- Treasure
+
+Character <|-- Pirate
+Character <|-- Monkey
+
+ISocketState .. Communication
+IGameEvent .. AbstractManager
+ICommandFromClient .. SubscribePirate
+ICommandFromClient .. MovePirate
+
+Brain -- Communication
+Brain -- MapManager
+Brain -- CharacterManager
+Brain -- ObjectManager
+Brain -- IGameEvent
+CharacterManager -> Pirate
+CharacterManager -> Monkey
+MapManager -> Map
+ObjectManager -> Rum
+ObjectManager -> Treasure
+
+Communication -> PostmanServer
+Communication -> Distributor
+ServerSocketCommunication - SocketMessage
+PostmanServer -> ServerSocketConnexion
+PostmanServer -> ServerSocketCommunication
+Distributor -> MovePirate
+Distributor -> SubscribePirate
+
+
+
+@enduml

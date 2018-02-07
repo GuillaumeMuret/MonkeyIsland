@@ -1,0 +1,13 @@
+@startuml
+
+Brain -> CharacterManager : onPirateDead(pirate)
+CharacterManager -> Brain : notifyRemovePirate(pirate.getPort())
+note over CharacterManager : On passe par deux observateurs pour facilier l'implementation,\nl'evolutivite et surtout pour permettre d'appeler la methode \n"onRemovePirate" par la  communication lors d'une coupure de communication \navec un client
+Brain -> CharacterManager : onRemovePirate(port)
+CharacterManager -> CharacterManager : pirateList.remove(pirate)
+opt pirateList.size() == 0
+	CharacterManager -> CharacterManager : interruptMonkeyThread = true
+end
+Brain -> Communication : sendPirateRemoved(pirate.getPort())
+
+@enduml

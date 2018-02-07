@@ -1,0 +1,22 @@
+@startuml
+
+class ProcessOut {
+	+ owner : String
+	+ process : String
+	+ PROXY_CLIENT_ID_NEW_PIRATE_SUBSCRIBED   (Proxy.PROXY_CLIENT,"/i "), 
+	+ PROXY_CLIENT_MOVE_REFUSED               (Proxy.PROXY_CLIENT,"/R "),
+	+ PROXY_CLIENT_MOVE_ACCEPTED              (Proxy.PROXY_CLIENT,"/A "), 
+	+ PROXY_CLIENT_OTHER_PIRATES_POSITIONS    (Proxy.PROXY_CLIENT,"/P "), 
+	+ PROXY_CLIENT_NEW_PIRATE                 (Proxy.PROXY_CLIENT,"/n "), 
+	+ PROXY_CLIENT_SUPPRESS_PIRATE            (Proxy.PROXY_CLIENT,"/s "), 
+	+ PROXY_CLIENT_MOVE_PIRATE                (Proxy.PROXY_CLIENT,"/p "), 
+	+ PROXY_CLIENT_SET_MAP                    (Proxy.PROXY_CLIENT,"/C "), 
+	+ PROXY_CLIENT_MONKEY_ERRATIC_POSITION    (Proxy.PROXY_CLIENT,"/e "), 
+	+ PROXY_CLIENT_MONKEY_HUNTER_POSITION     (Proxy.PROXY_CLIENT,"/c "), 
+	+ PROXY_CLIENT_BOTTLE_POSITION            (Proxy.PROXY_CLIENT,"/B "), 
+	+ PROXY_CLIENT_BOTTLE_VISIBILITY          (Proxy.PROXY_CLIENT,"/b "), 
+	+ PROXY_CLIENT_TREASURE_POSITION          (Proxy.PROXY_CLIENT,"/T "), 
+	+ PROXY_CLIENT_NEW_GAME                   (Proxy.PROXY_CLIENT,"/N ");
+}
+
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+alt gameObject == TREASURE
+	GameObject -> GameObject : setVisable(true)
+else gameObject == RUM
+	GameObject -> GameObject : setVisable(false)
+end
+@enduml

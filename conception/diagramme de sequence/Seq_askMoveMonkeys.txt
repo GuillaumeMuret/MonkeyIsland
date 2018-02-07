@@ -1,0 +1,16 @@
+@startuml
+title askMoveMonkeys
+
+CharacterManager -> CharacterManager : iterateurMonkeyList = 0;
+loop iterateurMonkeyList<monkeyList.size()
+
+opt monkeyList.get(i).getType() == MONKEY_ERRATIC
+ref over CharacterManager : setMovingErraticPosition(monkeyList.get(iterateurMonkeyList))
+end
+
+opt monkeyList.get(i).getType() == MONKEY_HUNTER
+ref over CharacterManager : setMovingHunterPosition(monkeyList.get(iterateurMonkeyList))
+end
+CharacterManager -> CharacterManager : iterateurMonkeyList = iterateurMonkeyList + 1;
+end
+@enduml

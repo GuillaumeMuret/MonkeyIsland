@@ -1,0 +1,25 @@
+@startuml
+title eventWhenMoveMonkey
+
+CharacterManager -> CharacterManager : iterateurPirateList = 0;
+loop iterateurPirateList<pirateList.size()
+CharacterManager -> CharacterManager : iterateurMonkeyList = 0;
+loop iterateurMonkeyList<monkeyList.size()
+opt possiblePositions.size() > 1
+
+opt pirateList[iterateurPirateList].getPosition() == monkeyList[iterateurMonkeyList].getPosition()
+CharacterManager -> CharacterManager : pirateDeadList.add(pirateList[iterateurPirateList].getPosition())
+end
+CharacterManager -> CharacterManager : iterateurMonkeyList = iterateurMonkeyList+1
+end
+CharacterManager -> CharacterManager : iterateurPirateList = iterateurPirateList+1
+end
+end
+
+CharacterManager -> CharacterManager : iterateurPirateDeadList = 0;
+loop iterateurPirateDeadList<pirateDeadList.size()
+CharacterManager -> Communication : sendPirateDead(pirateDeadList.get(iterateurPirateDeadList));
+CharacterManager -> CharacterManager : iterateurPirateDeadList = iterateurPirateDeadList+1
+end
+
+@enduml

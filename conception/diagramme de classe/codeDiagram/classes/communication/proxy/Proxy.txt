@@ -1,0 +1,7 @@
+@startuml
+
+class Proxy {
+	+ PROXY_CLIENT : String = "ProxyClient"
+}
+
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+
+title isMonkeyOnThisPosition
+
+CharacterManager -> CharacterManager : monkeyFound = false
+CharacterManager -> CharacterManager : iterateurMonkeyList = 0
+loop iterateurMonkeyList<monkeyList.size() && !monkeyFound
+opt monkeyList.get(iterateurMonkeyList).getPosition().isEquals(positionInParam)
+CharacterManager -> CharacterManager : monkeyFound = true
+end
+end
+CharacterManager -> CharacterManager : return monkeyFound
+
+@enduml

@@ -1,0 +1,33 @@
+ @startuml
+class CharacterManager <<S,Singleton>> {
+	- monkeyList : ArrayList<Monkey>
+	- timerHunter : Timer
+	- timerErratic : Timer
+	- manageNextMoveThreadMonkeysErratic() : void
+	- manageNextMoveThreadMonkeysHunter() : void
+	- askMoveMonkeys(CharacterType) : void
+	- setMovingErraticPosition(Monkey) : void
+	- setMovingHunterPosition(Monkey) : void
+	- startMonkeyMouvement() : void
+}
+
+class ThreadMoveMonkeysErratic <<T,Thread>> {
+	+ run() : void
+}
+
+class ThreadMoveMonkeysHunter <<T,Thread>> {
+	+ run() : void
+}
+
+abstract Character{
+	- position : Position
+	- characterType : CharacterType
+	+ Character(Position, CharacterType)
+	+ moveCharacter(Position) : void
+}
+
+CharacterManager -- ThreadMoveMonkeysErratic
+CharacterManager -- ThreadMoveMonkeysHunter
+Character <|-- Monkey
+CharacterManager -up- "0..*"Monkey
+@enduml

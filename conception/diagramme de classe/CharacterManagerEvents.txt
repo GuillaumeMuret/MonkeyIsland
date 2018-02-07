@@ -1,0 +1,45 @@
+ @startuml
+class CharacterManager <<S,Singleton>> {
+	- pirateList : ArrayList<Pirate>
+	- monkeyList : ArrayList<Monkey>
+	- computePirateEvent(CharacterEventWhenMove, Pirate, GameObject) : void
+	- getCharacterInPosition(Position) : Character
+	- eventWhenMovePirate(Character, Character, GameObject) : CharacterEventWhenMove
+	- eventWhenMoveMonkey() : void
+	- getPirateOnPosition(Position) : Pirate
+}
+
+abstract Character{
+	- position : Position
+	- characterType : CharacterType
+	- characterEventWhenMove : CharacterEventWhenMove
+	+ Character(Position, CharacterType)
+	+ moveCharacter(Position) : void
+}
+
+enum CharacterEventWhenMove {
+	+ value : String
+	+ NONE : CharacterEventWhenMove
+	+ DIE_BY_MONKEY : CharacterEventWhenMove
+	+ DIE_BY_ENERGY : CharacterEventWhenMove
+	+ DRINK : CharacterEventWhenMove
+	+ TREASURE : CharacterEventWhenMove
+	+ KILL : CharacterEventWhenMove
+}
+
+class Pirate {
+	- port : int
+	- energy : Energy
+	+ Pirate(Position, int, Energy)
+}
+
+class Monkey {
+	+ Monkey(Position, MonkeyType)
+}
+CharacterManager -up-"0..*"Pirate
+
+Character <|-- Pirate
+Character <|-- Monkey
+Character -left-"1" CharacterEventWhenMove
+CharacterManager -up- "0..*"Monkey
+@enduml

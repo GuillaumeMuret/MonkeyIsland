@@ -1,0 +1,128 @@
+@startuml
+
+class Brain <<S, Singleton>>{
+	+ sendPirateSubscribed(int, Pirate) : void
+	+ sendNewPirateOnMap(int, Pirate) : void
+	+ sendPirateMoveAccepted(Pirate) : void
+	+ sendMapToClient(int, Map) : void
+	+ sendOtherPiratePosition(int, ArrayList<Pirate>) : void
+	+ sendErraticMonkeyPosition(int, ArrayList<Monkey>) : void
+	+ sendBroadcastErraticMonkeyPosition(ArrayList<Monkey>) : void
+	+ sendHunterMonkeyPosition(int, ArrayList<Monkey>) : void
+	+ sendBroadcastHunterMonkeyPosition(ArrayList<Monkey>) : void
+	+ sendPirateMoveRefused(int) : void
+	+ sendRumBottleVisibility(Rum) : void
+	+ sendTreasureFound(Treasure) : void
+	- sendPirateRemoved(int) : void
+	- sendNewGame() : void
+	+ notifyNewConnection() : void
+	+ notifyInitAll() : void
+	+ notifyPirateSubscribed(Pirate) : void
+	+ notifyPirateDead(Pirate) : void
+	+ notifyRumDrunk(Rum) : void
+	+ notifyRumReappear(Rum) : void
+	+ notifyTreasureFound(Treasure) : void
+	+ notifyRemovePirate(int) : void
+	+ notifyPirateReinitialisation(Pirate) : void
+}
+
+class Communication <<S, Singleton>>{
+
+}
+
+Class MapManager <<S, Singleton>>{
+
+}
+
+Class Map <<S, Singleton>>{
+	+ initMap()
+}
+
+Class Square {
+	- squareType : int
+}
+
+Class Position {
+	- positionX : int
+	- positionY : int
+}
+
+abstract AbstractManager <<S, Singleton>> {
+	
+}
+interface IGameEvent {
+	+ onInitAll()
+	+ onNewConnection() : void
+	+ onPirateDead(p : Pirate)
+	+ onRumDrunk(rum : Rum)
+	+ onRumReappear(rum : Rum)
+	+ onTreasureFound(treasure : Treasure)
+	+ onRemovePirate(port : int)
+}
+
+class CharacterManager <<S, Singleton>> {
+
+}
+
+abstract Character{
+	+ moveCharacter(newPosition : Position)
+}
+
+class Pirate {
+    - port : int
+    - energy : Energy
+    - state : CharacterState
+    + addEnergy(energy : Energy)
+    + removeEnergy(energy : Energy)
+}
+
+class Monkey {
+    - type : MonkeyType
+}
+
+class ObjectManager <<S,Singleton>> {
+
+}
+
+abstract GameObject {
+	- visible : boolean
+}
+
+class Treasure {
+
+}
+
+class Rum {
+	-energy : int
+}
+
+Brain "1"---down-"1" MapManager
+Brain "1"---down-"1" CharacterManager
+Brain "1"---down-"1" ObjectManager
+Brain "1"-right-"1" Communication
+
+AbstractManager <|-- MapManager
+AbstractManager <|-- CharacterManager
+AbstractManager <|-- ObjectManager
+
+AbstractManager .. IGameEvent
+
+MapManager -down-"1" Map
+Map -down-"1..*" Square
+Square -down-"1" Position
+
+CharacterManager -down- "0..*"Pirate
+CharacterManager -down- "0..*"Monkey
+Pirate -down-|> Character
+Monkey -down-|> Character
+
+Character -down- "1" Position
+
+ObjectManager -down-"1" Treasure
+ObjectManager -down-"0..*" Rum
+
+Treasure -down-|> GameObject
+Rum -down-|> GameObject
+GameObject -down- "1" Position	
+
+@enduml

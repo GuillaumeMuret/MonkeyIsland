@@ -1,0 +1,142 @@
+@startuml
+title Diagramme de classe du code model controller
+
+class AbstractManager <<Abstract>>{
+
+}
+class Brain <<Singleton>> {
+	+ wakeUpBrain()
+	+ sendPirateSubscribed()
+	+ sendNewPirateOnMap()
+	+ sendPirateMoveAccepted()
+	+ sendMapToClient()
+	+ sendErraticMonkeyPosition()
+	+ sendBroadcastErraticMonkeyPosition()
+	+ sendHunterMonkeyPosition()
+	+ sendBroadcastHunterMonkeyPosition()
+	+ sendPirateMoveRefused()
+	+ sendRumBottleVisibility()
+	+ sendTreasureFound()
+	+ sendPirateRemoved()
+	+ sendNewGame()
+	+ notifyNewConnection()
+	+ notifyInitAll()
+	+ notifyPirateSubscribed()
+	+ notifyPirateDead()
+	+ notifyRumDrunk()
+	+ notifyRumReappear()
+	+ notifyTreasureFound()
+	+ notifyRemovePirate()
+	+ notifyPirateReinitialisation()
+}
+class CharacterManager <<Singleton>> {
+	+ isValidMove()
+	+ initMonkeys()
+	+ initRandomMonkeys()
+	+ askMovePirate()
+	+ managePirateMovePossible()
+	+ computeEvent()
+	+ getPirateFromPort()
+	+ getPositionDestination()
+	+ getCharacterInPosition()
+	+ canMovePirate()
+	+ getCharacterList()
+	+ eventWhenMove()
+	+ subscribeNewPirate()
+	+ removePirate()
+	+ isPirateAlreadyInList()
+	+ eventWhenMoveMonkey()
+	+ manageNextMoveThreadMonkeysErratic()
+	+ manageNextMoveThreadMonkeysHunter()
+	+ askMoveMonkeys()
+	+ setMovingErraticPosition()
+	+ manageHunterZone()
+	+ setMovingHunterPosition()
+	+ getNearestPiratePosition()
+	+ getSmallestDistancePositionInList()
+	+ getAllPossiblePositions()
+	+ isPossibleMoveMonkey()
+	+ getHunterMonkeyDirectionPriority()
+	+ getPirateOnPosition()
+	+ isMonkeyOnThisPosition()
+	+ remakeAllPiratePosition()
+}
+interface IGameEvent {
+	+ onNewConnection()
+	+ onInitAll()
+	+ onPirateSubscribed()
+	+ onPirateDead()
+	+ onRumDrunk()
+	+ onRumReappear()
+	+ onTreasureFound()
+	+ onRemovePirate()
+}
+class MapManager <<Singleton>> {
+	+ getClonedGroundSquareList()
+	+ getSquareType()
+}
+class ObjectManager <<Singleton>> {
+
+}
+
+class Energy {
+
+}
+
+class Character <<Abstract>> {
+
+}
+class Monkey {
+
+}
+class Pirate {
+
+}   
+class Map <<Singleton>> {
+
+}
+class Square {
+
+}
+class GameObject <<Abstract>> {
+
+}
+class Rum {
+
+}
+class Treasure {
+
+}    
+class Position {
+
+}
+
+AbstractManager <|-- CharacterManager 
+AbstractManager <|-- MapManager 
+AbstractManager <|-- ObjectManager 
+AbstractManager .. IGameEvent
+
+GameObject <|-- Rum
+GameObject <|-- Treasure
+
+Character <|-- Pirate
+Character <|-- Monkey
+
+Brain -down- MapManager
+Brain -down- CharacterManager
+Brain -down- ObjectManager
+Brain -up- IGameEvent
+
+CharacterManager -down-> Pirate
+CharacterManager -down-> Monkey
+MapManager -down-> Map
+ObjectManager -down-> Rum
+ObjectManager -down-> Treasure
+Character -down-> Position
+Pirate -down-> Energy
+Monkey -down-> Energy
+Map -down-> Square
+Square -down-> Position
+GameObject -down-> Position
+
+@enduml

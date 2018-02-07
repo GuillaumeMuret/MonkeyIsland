@@ -1,0 +1,11 @@
+@startuml
+
+class SocketMessage {
+	+ SocketMessage(int, String)
+	+ getPort() : int
+	+ getMessage() : String
+	- port : int
+	- message : String
+}
+
+@enduml

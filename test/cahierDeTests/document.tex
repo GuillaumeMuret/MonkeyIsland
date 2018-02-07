@@ -1,0 +1,181 @@
+%-----------------------------------
+% Source de Base rapport ESEO
+%
+% <Type de document>	\TypeDocument
+% <Portée du document>	\PorteeDocument
+%
+%-----------------------------------
+
+\documentclass[a4paper,11pt,titlepage]{article}
+
+\usepackage[english,francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{xspace, graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{lastpage}
+\usepackage{array}
+\usepackage{hyperref}
+
+%------------------------------------
+
+\usepackage{fancyhdr}
+\newcommand{\TypeDocument}{Cahier de Tests}
+\newcommand{\AuteurPrincipal}{Clément Pabst}
+\newcommand{\NomGroupeDocument}{Equipe DDMP}
+\newcommand{\IntituleDocument}{Module «~COOL, QT~»}
+\newcommand{\PorteeDocument}{A l'attention des enseignants du module «~COOL, QT~» 2017/2018.}
+\pagestyle{fancy}
+
+%%%%Ajouts Clément Pabst, Début :
+
+\renewcommand{\labelitemi}{-}
+
+\hypersetup{
+%bookmarks=true,         % show bookmarks bar?
+%unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+%pdftoolbar=true,        % show Acrobat’s toolbar?
+%pdfmenubar=true,        % show Acrobat’s menu?
+%pdffitwindow=true,      % page fit to window when opened
+pdftitle={Cahier de Tests - Equipe DDMP},    % title
+pdfauthor={\AuteurPrincipal},     % author
+pdfcreator={\AuteurPrincipal},     % creator
+%pdfsubject={Mon document LaTeX},   % subject of the document
+%pdfnewwindow=true,      % links in new window
+%pdfkeywords={blablaa, blablab}, % list of keywords
+colorlinks=true,       % false: boxed links; true: colored links
+linkcolor=green,          % color of internal links
+%citecolor=green,        % color of links to bibliography
+%filecolor=magenta,      % color of file links
+%urlcolor=cyan           % color of external links
+}
+
+%%%%Ajouts Clément Pabst,  Fin  :
+
+\setlength{\hoffset}{-40pt}
+
+\setlength{\topmargin}{-25pt}
+\setlength{\headsep}{10pt}
+
+\renewcommand{\headheight}{80pt}
+
+\renewcommand{\headwidth}{450pt}
+\setlength{\textwidth}{450pt}
+\setlength{\textheight}{604pt}
+
+\renewcommand{\footrulewidth}{0.1mm}
+
+\fancyhf{}
+        \fancyhead[LO]{\bf \includegraphics[width=60pt]{img/logoeseo.eps} \textsc{Angers}\\
+                                Cycle Ingénieur $3^{\text{éme}}$ année\\
+                                \NomGroupeDocument}
+         \fancyhead[RO]{\bf {\large \IntituleDocument}\\
+				\medskip
+				{\large \TypeDocument}\\
+				\medskip
+				{\small\textit{version du \today}}}
+         \fancyfoot[LO]{\sl \PorteeDocument}
+         \fancyfoot[RO]{\thepage/\pageref{LastPage}}
+
+\setcounter{tocdepth}{3}
+
+%----------------------------------------
+%       DOCUMENT
+%----------------------------------------
+
+\begin{document}
+
+%---------------------------------------
+
+\sloppy%
+\renewcommand{\arraystretch}{1.5}
+
+%---------------------------------------
+
+\vspace{-2cm}%
+\begin{center}%
+{\Large {\textsc{\bf \IntituleDocument}}}
+\vspace{0.4cm}\\
+{\large\bf \NomGroupeDocument}
+
+\rule[0.5ex]{0.52\textwidth}{0.1mm}
+
+\vspace{0.2cm}
+{\Large\bf{\TypeDocument}}
+\vspace{0.2cm}\\
+{\Large\bf\textit{\PorteeDocument}}
+\end{center}
+
+\vspace{-0.2cm}
+\noindent\rule[0.5ex]{\textwidth}{0.1mm}
+\textit{Ce document est un cahier de tests dédié au projet «~Monkey Island~». Il est à destination des professeurs en charge de l'évaluation du module de l'année 2017-2018.}\\
+\rule[0.5ex]{\textwidth}{0.1mm}
+
+\vspace{1cm}
+\begin{tabular}{|p{5cm}|p{9cm}|}
+\hline
+\textbf{Auteur} & \textbf{Contact} \\\hline
+\AuteurPrincipal & clement.pabst@reseau.eseo.fr\\\hline
+\end{tabular}
+
+\vspace{0.5cm}
+\begin{tabular}{|p{5cm}|p{9cm}|}\hline
+\textbf{Relecteur} & \textbf{Contact} \\\hline
+François de Broch d'Hotelans & francois.debrochdhotelans@reseau.eseo.fr\\\hline
+Cailyn Davies & cailyn.davies@reseau.eseo.fr\\\hline
+Guillaume Muret & guillaume.muret@reseau.eseo.fr\\\hline
+\end{tabular}
+
+%\vspace{1cm}
+%\begin{tabular}{|p{1.5cm}|p{2cm}|p{10.1cm}|}\hline
+%\textbf{Version} & \textbf{Date} & \textbf{Commentaire} \\\hline
+%<x.y> & <date> & Ajout<s> : <sections et/ou sous-sections ajoutées> \newline Suppression<s> : <sections et/ou sous-sections supprimées> \newline Modification<s> : <sections et/ou sous-sections modifiées> \newline Mise<s> à jour : <sections et/ou sous-sections mises à jour> \\
+%<...> & <...> & <...> \\
+%<1\iere{}> & <date> & <sections présentes> \\\hline
+%\end{tabular}
+\newpage
+
+%------------------------------- 
+
+\tableofcontents
+% alternative pour réduire l'espacement entre les entrées de la table des matières
+% (la valeur numérique peut être adaptée au besoin) : 
+%{\setlength{\baselineskip}{0.96\baselineskip}\tableofcontents\par}
+\newpage
+
+%-------------------------------
+
+\input{Introduction}
+\newpage
+%
+%\input{References}
+%\newpage
+
+% \input{Section1}
+% \newpage
+% 
+% \input{Section2}
+% \newpage
+% 
+\input{IncrementUn}
+\newpage
+
+\input{IncrementDeux}
+\newpage
+
+\input{IncrementTrois}
+\newpage
+
+\input{SectionExemple}
+\newpage
+
+\input{Definitions}
+\newpage
+
+
+\end{document}
+
+%--- END 
+

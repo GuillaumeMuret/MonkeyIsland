@@ -1,0 +1,24 @@
+@startuml
+
+title Class MapManager \n
+
+Class MapManager <<S,Singleton>> {
+		- instance : MapManager
+		- brain : Brain
+		- map : Map
+		- MapManager(Brain)
+		+ getInstance(Brain) : MapManager
+		+ getMap() : Map
+		+ getSquareType(p : Position) : SquareType
+		+ getClonedGroundSquareList() : Square
+		+ onPirateSubscribed(int port)
+		+ onNewConnection()
+		+ onInitAll()
+		+ onPirateDead(pirate : Pirate)
+		+ onRumDrink(rum : Rum)
+		+ onRumReappear(Rum rum)
+		+ onTreasureFound(treasure : Treasure)
+		+ onRemovePirate(port : int)
+}
+
+@enduml

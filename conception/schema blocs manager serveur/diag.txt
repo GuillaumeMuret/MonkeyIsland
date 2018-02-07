@@ -1,0 +1,84 @@
+@startuml
+title Architecture davies_debrochdhotelans_muret_pabst
+package Server{
+	class Brain{
+		/N
+		__
+		Lancement du serveur
+	}
+	Class PostmanServer{
+		 
+		__
+		Ouvre la connexion
+		Envoi les messages
+		Reçois les messages
+		Envoi au Distributeur
+	}
+	class Distributor{
+		 
+		__
+		Ordonne le contrôle de :
+		- Souscription
+		- Délpacement
+	}
+	class Puppeteer{
+		/A posX-posY-energie
+		/P id1-pos1X-pos1Y___...___idn-posnX-posnY (alpha)
+		/p id-posX-posY (beta)
+		__
+		Déplace le pirate
+		Déplace le singe
+	}
+	class MoveManager{
+		/D directionX directionY
+		/R
+		/p id-posX-posY (alpha)
+		__
+		ValiditéDéplacement :
+		- Déplace
+		- Ne déplace pas (envoie au postman)
+	}
+	class Subscriber{
+		/I
+		/i id-posX-posY-energie
+		/n id-posX-posY (alpha)
+		/s id (alpha)
+		__
+		ValideInscription
+		InvalideInscription
+	}
+
+	class CharacterManager{
+		/P id1-pos1X-pos1Y___...___idn-posnX-posnY (beta)
+		/n id-posX-posY (beta)
+		/s id (beta)
+		/p id-posX-posY (gamma)
+		/e pos1X-pos1Y___...___posnX-posnY
+		/c pos1X-pos1Y___...___posnX-posnY
+		__
+		renvoie les positions des singes et des pirates
+		les envoies aux clients
+	}
+	class ObjectManager{
+		/B pos1X-pos1Y-vis1___...___posnX-posnY-visn
+		/b id-visibilite
+		/T posX-posY
+		__
+		renvoie les positions des bouteilles
+		les envoies aux clients
+		Visibilité des objets (Trésor inclus o/ )
+	}
+	class MapManager{
+		/C l h c 11 − ... − c 1l − ... − c h1 − ... − c hl
+		__
+		Donne ET Gère la position des cases mer et terre
+	}
+}
+
+package Client{
+	class "FAIT <3"
+}
+
+Server -[hidden]down--- Client
+
+@enduml

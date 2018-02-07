@@ -1,0 +1,11 @@
+@startuml
+
+class ProxyModel <<Abstract>> {
+	+ ProxyModel(PostmanServer)
+	+ sendMessage(int, String) : void
+	+ sendBroadcast(String) : void
+	+ sendBroadcastExceptPort(int, String) : void
+	# postmanServer : PostmanServer
+}
+
+@enduml

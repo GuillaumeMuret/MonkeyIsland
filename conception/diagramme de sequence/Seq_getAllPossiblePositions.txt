@@ -1,0 +1,29 @@
+@startuml
+
+title getAllPossiblePositions
+
+CharacterManager -> CharacterManager : possiblePosition = <<create>> Position(erraticMonkey.getPositionX() + 1, erraticMonkey.getPositionY());
+
+ref over CharacterManager : movePossible = isPossibleMoveMonkey(possiblePosition)
+opt movePossible
+CharacterManager -> CharacterManager : possiblePositionsList.add(possiblePosition);
+end
+
+CharacterManager -> CharacterManager : possiblePosition = <<create>> Position(erraticMonkey.getPositionX() - 1, erraticMonkey.getPositionY());
+opt isPossibleMoveMonkey(possiblePosition)
+CharacterManager -> CharacterManager : possiblePositionsList.add(possiblePosition);
+end 
+
+CharacterManager -> CharacterManager : possiblePosition = <<create>> Position(erraticMonkey.getPositionX(), erraticMonkey.getPositionY() + 1);
+opt isPossibleMoveMonkey(possiblePosition)
+CharacterManager -> CharacterManager : possiblePositionsList.add(possiblePosition);
+end 
+
+CharacterManager -> CharacterManager : possiblePosition = <<create>> Position(erraticMonkey.getPositionX(), erraticMonkey.getPositionY() - 1);
+opt isPossibleMoveMonkey(possiblePosition)
+CharacterManager -> CharacterManager : possiblePositionsList.add(possiblePosition);
+end 
+
+CharacterManager -> CharacterManager : return possiblePositionsList
+
+@enduml

@@ -1,0 +1,32 @@
+%-----------------------------------
+% Projet Systèmes Critiques
+%
+% <Type de document>
+% <Portée du document>
+% - <titre section>
+%-----------------------------------
+
+\section{Partie}
+\label{sec:partie}
+Le but ici va être de valider l’ensemble des éléments d'une partie d'un point de vue d'un client.
+
+\subsection{Gestion de la Partie}
+\label{subsec:partieGestion}
+
+Tester visuellement lors des scénarios Pirates (cf p.\pageref{subsec:piratesDeplacements}).\\
+\begin{itemize}
+\item Partie finie -> redémarre si le pirate va sur le trésor,
+\item Partie finie si plus de pirate sur la carte,
+\item Partie finie -> redémarre si plus de pirate vivant sur la carte.
+\end{itemize}
+
+\subsection{Communication}
+\label{subsec:partieCommunication}
+Les tests sont effectués automatiquement dans JMeter.
+\begin{itemize}
+\item Inscription du pirate,
+\item Déplacements HBGD (4tests),
+\item NON-Déplacement de 2 cases HBGD (4tests),
+\item NON-Déplacement en diagonale (4tests),
+\item NON-Déplacement de 2 cases en diagonale (4tests).
+\end{itemize}

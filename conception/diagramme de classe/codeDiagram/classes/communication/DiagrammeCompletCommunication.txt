@@ -1,0 +1,64 @@
+@startuml
+
+class ProxyClient <<S, Singleton>> {
+}
+
+class Distributor <<S, Singleton>> {
+	- Distributor(Brain)
+	+ getInstance(Brain) : Distributor
+	+ dispatch(String, String, int) : void
+	- commands : HashMap<String, IcommandFromClient>
+	- brain : Brain
+	- instance : Distributor
+}
+
+interface ICommandFromClient {
+	+ convertMessageAndCallManager(String, Brain, int) : void
+}
+
+class MovePirate {
+	+ convertMessageAndCallManager(String, Brain, int) : void
+}
+
+class SubscribePirate {
+	+ convertMessageAndCallManager(String, Brain, int) : void
+}
+
+class Communication <<S, Singleton>> {
+	- postmanServer : PostmanServer
+	- distributor : Distributor
+	- proxyClient : ProxyClient
+	- mapReadThread : HashMap<Integer, ReadThread>
+	- brain : Brain
+	- instance : Communication
+	- Communication(Brain)
+	+ getInstance(Brain) : Communication
+	+ readComMessage(int) : SocketMessage
+	+ getPostmanServer() : PostmanServer
+	+ onSocketConnected(int) : void
+	+ getProxyClient() : ProxyClient
+}
+
+class PostmanServer <<S, Singleton>> {
+
+}
+
+class Brain <<S, Singleton>> {
+
+}
+
+Communication --"1" Distributor
+Communication --"1" PostmanServer
+Communication --"1" ProxyClient
+
+Distributor --"*" ICommandFromClient
+
+
+ICommandFromClient .. SubscribePirate
+ICommandFromClient .. MovePirate
+
+ProxyClient --"1" PostmanServer
+
+Brain -- Distributor
+
+@enduml

@@ -1,0 +1,55 @@
+@startuml
+title main
+MAIN -> Brain : wakeUpBrain()
+
+Create MapManager
+Brain -> MapManager : <<create>> mapManager = MapManager.getInstance()
+Create CharacterManager
+Brain -> CharacterManager : <<create>> characterManager = CharacterManager.getInstance()
+Create ObjectManager
+Brain -> ObjectManager : <<create>> objectManager = ObjectManager.getInstance()
+Create Communication 
+Brain -> Communication : <<create>> commmunication = Communication.getInstance()
+
+Create Distributor
+Communication -> Distributor : <<create>> distributor = Distributor.getInstance()
+Create PostmanServer 
+Communication -> PostmanServer : <<create>> postmanServer = PostmanServer.getInstance()
+
+Create ServerSocketConnection
+PostmanServer -> ServerSocketConnection : <<create>> ServerSocketConnection()
+
+Create ProxyClient
+Communication -> ProxyClient : proxyClient = ProxyClient.getInstance()
+
+ServerSocketConnection -> ServerSocketConnection : serverSocket = <<create>> ServerSocket(port, address)
+
+alt onNewConnectionOccur
+	Create ServerSocketCommunication
+	ServerSocketConnection -> ServerSocketCommunication : socketCommunication = serverSocket.accept()
+	ServerSocketConnection -> PostmanServer : notifyNewSocketConnected(socketCommunication.getPort(), socketCommunication)
+
+	PostmanServer -> Communication : onSocketConnected(port)
+	Communication -> Brain : notifyNewConnection()
+	Brain -> CharacterManager : onNewConnection()
+	opt pirateList.size() == 0
+		CharacterManager -> Brain : notifyInitAll()
+		Brain -> MapManager : onInitAll()
+		ref over MapManager : onInitAll()
+		Brain -> CharacterManager : onInitAll()
+		ref over CharacterManager : onInitAll()
+		Brain -> ObjectManager : onInitAll()
+		ref over ObjectManager : onInitAll()
+	end
+
+	loop socketConnected
+		loop message == null
+			Communication -> PostmanServer : message = readOnSocket(port)
+			PostmanServer -> ServerSocketCommunication : message = read()
+		end
+		Communication -> Distributor : dispatch(message)
+		ref over Distributor : askMovePirate or subscribePirate by convertMessageAndCallManager(params, brain, port)
+	end
+end
+
+@enduml

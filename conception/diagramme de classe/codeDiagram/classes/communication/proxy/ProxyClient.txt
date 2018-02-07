@@ -1,0 +1,11 @@
+@startuml
+
+class ProxyClient <<Singleton>> {
+	- encoders : HashMap<String, AbstractEncoder> 
+	- instance : ProxyClient
+	- ProxyClient(PostmanServer)
+	+ getInstance(PostmanServer) : ProxyClient
+	+ getEncoders() : HashMap<String, AbstractEncoder>
+}
+
+@enduml

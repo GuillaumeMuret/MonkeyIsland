@@ -1,0 +1,28 @@
+@startuml
+	
+class ObjectManager <<S,Singleton>> {
+	- instance : ObjectManager
+	- brain : brain
+	- treasureList : <ArrayList>
+	- rumList : <ArrayList>
+	- ObjectManager(Brain)
+	- initGameObjects() : void
+	- initTreasure() : void
+	- initRumList() : void
+	+ getInstance(Brain) : ObjectManager
+	+ getRumList() : ArrayList<Rum>
+	+ getTreasureList() : ArrayList<Treasure>
+	+ setRumList(ArrayList<Rum>) : void
+	+ setTreasureList(ArrayList<Treasure>) : void
+	+ getObjectsList()
+	+ getObjectsInPosition(p : Position)
+	+ onInitAll()
+	+ onNewConnection() : void
+	+ onPirateDead(p : Pirate)
+	+ onRumDrunk(rum : Rum)
+	+ onRumReappear(rum : Rum)
+	+ onTreasureFound(treasure : Treasure)
+	+ onRemovePirate(port : int)
+}
+
+@enduml

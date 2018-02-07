@@ -1,0 +1,12 @@
+@startuml
+
+class ErraticMonkeyPosition {
+	+ ErraticMonkeyPosition(ProxyClient)
+	+ sendMessage(int, ArrayList<Monkey>) : void
+	+ sendBroadcast(ArrayList<Monkey>) : void
+	- getEncodedMessageErraticPositions(ArrayList<Monkey) : String
+	+ getErraticMonkeyList(ArrayList<Monkey>) : ArrayList<Monkey>
+	- proxyClient : ProxyClient
+}
+
+@enduml

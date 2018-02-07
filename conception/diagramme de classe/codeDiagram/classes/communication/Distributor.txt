@@ -1,0 +1,12 @@
+@startuml
+
+class Distributor <<Singleton>> {
+	- Distributor(Brain)
+	+ getInstance(Brain) : Distributor
+	+ dispatch(String, String, int) : void
+	- commands : HashMap<String, IcommandFromClient>
+	- brain : Brain
+	- instance : Distributor
+}
+
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+
+	Communication -> CharacterManager : subscribePirate(port)
+	CharacterManager -> CharacterManager : startPos = getFreeSquare()
+	CharacterManager -> Pirate : <<create>> newPirate = Pirate(startPos, port)
+	CharacterManager -> CharacterManager : addPirate(pirate)
+	CharacterManager -> Communication : newPirate(port, startPos)
+@enduml

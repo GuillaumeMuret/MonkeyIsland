@@ -1,0 +1,20 @@
+@startuml
+
+class PostmanServer <<S, Singleton>> {
+	- PostmanServer()
+	+ getInstance() : PostmanServer
+	+ writeMessage(int, String) : void
+	+ broadcastMessage(String) : void
+	+ broadcastMessageWithPortException(int, String) : void
+	+ readMessage(int) : SocketMessage
+	+ getStateSocket(int) : StateSocket
+	+ addStateSocketObservator(ISocketState) : void
+	+ notifyNewSocketConnected(int, ServerSocketCommunication) : void
+	+ removeSocketCommunication(int) : void
+	+ SERVER_PORT : int = 13579
+	- listSocketStateObservator : ArrayList<ISocketState>
+	- mapServerSocket : HashMap<Integer, ServerSocketCommunication>
+	- instance: PostmanServer
+}
+
+@enduml

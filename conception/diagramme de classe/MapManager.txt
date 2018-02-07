@@ -1,0 +1,58 @@
+@startuml
+
+Class MapManager <<S,Singleton>> {
+		- instance : MapManager
+		- brain : Brain
+		- map : Map
+		- MapManager(Brain)
+		+ getInstance(Brain) : MapManager
+		+ getMap() : Map
+		+ getSquareType(p : Position) : SquareType
+		+ getClonedGroundSquareList() : Square
+		+ onPirateSubscribed(int port)
+		+ onNewConnection()
+		+ onInitAll()
+		+ onPirateDead(pirate : Pirate)
+		+ onRumDrink(rum : Rum)
+		+ onRumReappear(Rum rum)
+		+ onTreasureFound(treasure : Treasure)
+		+ onRemovePirate(port : int)
+}
+
+Class Map <<S,Singleton>> {
+		- instance : Map
+		- height : int
+		- width : int
+		- groundSquareList : ArrayList<Square>
+		- squareList : ArrayList<Square>
+		+ getGroundSquareList() : ArrayList<Square>
+		+ getSquareList()
+	    + setSquareList()
+		+ getWidth() : int
+		+ setWidth(int) : void
+		+ getHeight() : int
+	    + setHeight(int) : void
+	    + initMap() : void
+		+ initRandomMap() : void
+		+ initGroundSquareList() : void
+		+ getInstance() : Map
+}
+
+Class Square{
+	- squareType : int
+	+ getSquareType() : int
+}
+
+Class Position{
+	- positionX : int
+	- positionY : int
+	+ getPositionX() : int
+	+ getPositionY() : int
+}
+
+MapManager -down-"1" Map
+Map -right-"1..*" Square
+Square -right-"1" Position
+
+
+@enduml

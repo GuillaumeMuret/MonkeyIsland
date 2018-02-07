@@ -1,0 +1,377 @@
+@startuml
+
+title Aspirant class diagram Thingy\n
+
+class TestManager{
+	-stateStop : Boolean "noStop=FALSE / stop=TRUE"
+	'Accesseurs/Mutateurs'
+	+getScenario(n) : Scenario
+	+getScenario() : Scenario[]
+	+setCampaign(Scenario[] myTestsCampaign)
+	+getStop() : stateStop
+	+setStop(stateStop)
+}
+
+class StepTest{
+	-iDScenario : String
+	-iDStepTest : String
+	-result : Integer "success=0 / fail=1 / unknown=2 / Er_Com=666"
+	+goStepTest()
+	-checkTest(Response receivedResponse, String iDScenario, String iDStepTest) : Integer
+	'Accesseurs/Mutateurs'
+	+setInitialResponse(Response receivedResponse)
+	+getDispatcher() : Dispatcher
+	+setReceivedResponse(Response receivedResponse)
+	+getInitialResponse() : Response
+	+getReceivedResponse() : Response
+	+getHistorian() : Historian myHistorian
+	+getIDScenario() : String
+	+getIDStepTest() : String
+}
+
+class Response{
+}
+
+class Data{
+	-data : String
+	+setData(String data)
+	+getData() : String
+}
+
+class StateInputOutput{
+	-state : Integer
+	+setState(Integer state)
+	+getState() : Integer
+}
+
+class Dispatcher{	
+	+execute(StepTest scenario[n][i])
+	+askM2M()
+	+askActivateScene()
+	+askDesactivateScene()
+	'Accesseurs/Mutateurs'
+	+getComTE() : ComTE myComTE
+	+getComX8R() : ComX8R myComX8R
+	+getComIPX() : ComIPX myComIPX
+}
+
+class ComTE{
+	+goSendOrderAnalogicInput(Integer i)
+	-sendOrderAnalogicInput(Integer i)
+	+goSendOrderNumericInput(Integer i)
+	-sendOrderNumericInput(Integer i)
+	+getStepTest() : StepTest myStepTest
+}
+
+class ComTE
+note bottom : Classe présente uniquement si utilisation de Thingy_ELektronisk (TE)
+
+class ComX8R{
+	+goAskStateNumericInput(Integer i) 
+	-askStateNumericInput(Integer i)
+	+setResponseCmd(Response receivedResponse)
+	+goSendOrderRelayOutput(Integer i)   Cette méthode n'est implémentée qu'en cas de non utilisation de TE
+	-sendOrderRelayOutput(Integer i)   Cette méthode n'est implémentée qu'en cas de non utilisation de TE
+	+getStepTest() : StepTest myStepTest
+}
+
+class ComIPX{
+	+goResetOutputRelays()
+	-resetOutputRelays()
+	+goAskStateOutputRelay(Integer i)
+	-askStateOutputRelay(i)
+	+goAskValueAnalogicInput(Integer i)
+	-askValueAnalogicInput(i)
+	+goAskStateNumericInput(Integer i)
+	-askStateNumericInput(i)
+	+setResponseCmd(Response receivedResponse)
+	+goSendPing(String IPaddress)
+	-sendPing(IPaddress)
+	+goSendOrderRelayOutput(Integer i)
+	-sendOrderRelayOutput(i)
+	+goAskDataNVRAM()
+	-askDataNVRAM()
+	+goSendDataNVRAM()
+	-sendDataNVRAM()
+	+goAskDataFlash()
+	-askDataFlash()
+	+goAskDataEnocean()
+	-askDataEnocean()
+	+getStepTest() : StepTest myStepTest
+	-detectChange(receivedResponse) : Boolean change
+	+goM2M()
+	-M2M()
+	+goActivateScene()
+	-activateScene()
+	+goDesactivateScene()
+	-desactivateScene()
+}
+
+class UI{
+	'Attributs'
+	-myCard : String
+	-myTester : Tester
+	-myTestManager : TestManager
+	-myHistorian : Historian
+	-myTesterGuard : TesterGuard
+	-myCardGuard : CardGuard
+	-myScholarTest : ScholarTest
+	-myBrain : Brain
+	
+	-myRecentHistory : History[]
+	-myCardHistory : History[]
+	-myTestsCampaign : Scenario[]
+	-myNominalListTests : Scenario[]
+	-operatorID : String	
+	-cardID : String
+	-iDResearchCard : String
+
+	-iDTester : Boolean
+	-endTests : Boolean
+	-validTest : Integer
+	
+	-ready : Integer "OK=0 / Er_Alim=1 / 2=Er_Interrupt"
+	
+	'Actions Utilisateur'
+	-validEdit()
+	-validCardID()
+	-editTest()
+	-disconnect()
+	-validDisconnect()
+	-askStartTA()
+	-newCard()
+	-connect()
+	-startRunning()
+	-quit()
+	-validQuit()
+	-invalidQuit()
+	-setValidTestResult(Integer validTest)
+	-validInterrupt()
+	-invalidInterrupt()
+	-replay()
+	-searchCard()
+	-detail(Integer detail)
+	-checkCreateCard()
+	-uncheckCreateCard()	
+	-setTestCampaign(Scenario[] myTestCampaign)
+	-setCardID(Card card)
+	-setLog(String operatorID)
+	
+	-checkCardFormat(String cardID) : Boolean
+	-checkOperatorFormat(String operatorID) : Boolean
+	-checkTestCampaign(Scenario[] myTestCampaign) : Boolean
+	-setLog(String operatorID)
+	-setCardID(Card card)
+	-setValidTestResult(Integer validTest)
+	-setTestCampaign(Scenario[] myTestCampaign)
+	-stopTA()
+
+	'Affichage des écrans/messages'	
+	-displayScreen(screen)
+	-displayDialog(dialog)
+	-displayText(text)
+
+	'Action entre entre les autres objets'
+	+setCardHistory(History[] history)
+	+setRecentHistory(History[] history)
+	+setNominalListTests(Scenario[] myNominalListTest)
+	+setOperatorAccess(Boolean operatorAccess)
+	+setOperatorInfo(String username)
+	+setCardExistance(Boolean existanceCard)
+	+setReady(Integer ready)
+	+setStepTestEndResult(String iDScenario, String iDStepTest, Integer stepTestEndResult)
+	+setEndTests(Boolean endTests)
+	+setStateSave(Integer state)
+	+alarmUI(Integer errorConnexion)
+	+validCampaign()
+	
+	'Accesseurs/Mutateurs'
+	+getCardGuard() : CardGuard myCardGuard
+	+getCard() : Card myCard
+	+getTester() : Tester myTester
+	+getTestManager() : TestManager myTestManager
+	+getHistorian(): Historian myHistorian
+	+getTesterGuard() : TesterGuard myTesterGuard
+	+getScholarTest() : ScholarTest myScholarTest
+	+getBrain() : Brain myBrain
+	+getTestCampaign() : Scenario[]
+	
+}
+
+class UIDebug{
+	+debug(String msg)
+	+clear()
+}
+
+class CardGuard{
+	-myCard : String
+	-existanceCard : Boolean "existantCard=TRUE / noCard=FALSE"
+	-state : Integer "saveDone=0 / Er_Com=1 / NOT_DONE=2"
+	-time : String
+	+askCheckCardID(String cardID)
+	-askCheckCard(String cardID)
+	+newCard()
+	+createNewIDCard(String time,String operatorID) : String
+	'Accesseurs/Mutateurs'
+	+getCardID() : String
+	+setCardID(String iDCard)
+	+setCardExistance(Boolean existanceCard)
+	+setStateSave(Integer state)
+	+getTime() : String time
+}
+
+class TesterGuard{
+	-accessOperator : Boolean "allowOperatorAccess=TRUE / banOperatorAccess=FALSE"
+	-username : String
+	-date : String
+	+askCheckLogTester(Operator operatorID)
+	-askOperatorInfo(Operator operatorID)
+	-askCheckLog(Operator operatorID)
+	'Accesseurs/Mutateurs'
+	+setOperatorAccess(Boolean accessOperator)
+	+setOperatorID(Operator operatorID)
+	+setOperatorInfo(String username)
+	+getOperatorID() : String myOperator.name
+}
+
+class Brain{
+	-ready : Integer "OK=0 / Er_Alim=1 / 2=Er_Interrupt / 3=unknown"
+	-myTestManager : TestManager
+	-myStepTest : StepTest
+	-myDispatcher : Dispatcher
+	-myComTE : ComTE
+	-myComX8R : ComX8R
+	-myComIPX : ComIPX
+	-myScholarTest : ScholarTest
+	-myScenario : Scenario
+	
+	+askStartTC()
+	-startTC()
+	+stopTC()
+	+askReady()	
+	-killAllTC()
+	+alarmBrain()	
+	'Accesseurs/Mutateurs'
+	+getUIDebug() : UIDebug
+}
+
+class ScholarTest{
+	-nominalListTests :Scenario[]
+	+askNominalListTests()
+	+getNominalListTests() : Scenario[] nominalListTests
+}
+
+class Historian{
+	-cardUse : String
+	-operatorName : String
+	-state : Integer "saveDone=0 / Er_Com=1 / NOT_DONE=2"
+	-cardHistory : History*
+	-recentHistory : History*
+	-historyInUse : History
+	+askSaveNewLine(String cardID, String operatorName, String time)
+	+askSaveNewIDCard(String cardID, String operatorName, String time)
+	+askSaveResultTest(String iDScenario,String iDStepTest, Integer result)
+	+askValidSave(Integer validTest)
+	-askSaveValid(Integer validTest)
+	-askSaveCampaign(History historyInUse)
+	+askSaveResultCampaign()
+	-askSave(String cardID, String operatorName, String time)
+	-askSaveNewID(String cardID, String operatorName, String time)
+	'Accesseurs/Mutateurs'
+	+getCardUse() : String cardUse
+	+setSave(Integer state)
+	+askCardHistory(String iDResearchCard)
+	-askHistoryOfCard(String iDResearchCard)
+	+askRecentHistory()
+	-askYoungHistory()
+	+setCardHistory(String iDResearchCard)
+	+setRecentHistory()
+	+getCardHistory() : History cardHistory
+	+getRecentHistory() : History recentHistory
+	-setHistoryInUse(History historyInUse, String iDScenario,String iDStepTest, Integer result)
+}
+
+class Tester{
+	-done : Integer "saveDone=0 / Er_Com=1 / NOT_DONE=2"
+	+endTests : Boolean
+	+stepTestEndResult : Integer
+	+runTests()
+	'Accesseurs/Mutateurs'
+	+getTestManager() : TestManager myTestManager
+	+getStepTest() : StepTest myStepTest
+	+setEndTests(Boolean endTests) 
+	+setStepTestEndResult(Integer result)
+	+setStateSave(Integer done)
+
+}
+
+class Scenario{
+	-iDScenario : String
+	-nbStepTest : Integer
+	-run : Boolean
+	+setStepTest(StepTest[] stepTest)
+	+setStepTestN(StepTest stepTest)
+	+getStepTest() : StepTest[]
+	+getStepTest(n) : StepTest
+	+getIDScenario() : String
+
+}
+class Operator{
+	-name : String
+	-password : String
+	+setName(String name)
+	+setPassword(String password)
+	+getName() : String
+	+getPassword() : String
+
+}
+Class History{
+	-historyID : Integer
+	-resultHist : Integer
+	-validTest : Integer
+	-date : String
+	-numberCard : String
+	-numberOperator : String
+	-scArray : Array*
+	+History_copy(History hFrom) : History*
+}
+
+UI "1" -left-> "1\n-myScholarTest" ScholarTest
+UI "1" -right-> "1\n-myTestManager" TestManager
+UI "1\n-myUI" -- "1\n-myHistorian" Historian
+UI "1\n-myUI" -- "1\n-myTesterGuard" TesterGuard
+Brain "1" -right-> "1\n-myUIDebug" UIDebug
+Brain "1\n-myBrain" -down- "1\n" Historian
+UI "1\n" -- "1\n-myBrain" Brain
+UI "1\n-myUI" -- "1\n-myCardGuard" CardGuard
+Historian "1-myHistorian" -- "1\n-myCardGuard" CardGuard
+CardGuard "1" -up-> "1\n-myTesterGuard" TesterGuard
+CardGuard "1" -up- "1\n-myBrain" Brain
+Tester "1" -up-> "1\n-myTestManager" TestManager
+Tester "1" --> "1\n-myStepTest" StepTest
+Tester "1" -down- "1\n-myBrain" Brain
+StepTest "1\n-myStepTest" -- "1\n-myDispatcher" Dispatcher
+StepTest "1" -up-> "1\n-myHistorian" Historian
+Tester "1\n-myTester" -- "1\n-myHistorian" Historian
+Tester "1\n-myTester" -- "1\n-myUI" UI
+Dispatcher "1" -down-> "0..1\n-myComTE" ComTE
+Dispatcher "1" --right--> "0..1\n-myComX8R" ComX8R
+Dispatcher "1" -down-> "0..1\n-myComIPX" ComIPX
+ComIPX "1" --> "1\n-myStepTest" StepTest
+ComX8R "1" --> "1\n-myStepTest" StepTest
+TesterGuard "1" --> "1\n-myOperator" Operator
+TesterGuard "1" -right- "1\n-myBrain" Brain
+Historian "1" --> "*\n-cardHistory" History
+Historian "1" --right--> "*\n-recentHistory" History
+Historian "1" --> "1\n-historyInUse" History
+Scenario o--> "*\n-myStepTest" StepTest
+TestManager o-right- "*\n-myTestCampaign" Scenario
+Response <|-- Data
+Response <|-- StateInputOutput
+StepTest "1" --> "1\nreceivedResponse" Response
+StepTest "1" --> "1\ninitialResponse" Response
+ComX8R "1" --down--> "1\nreceivedResponse" Response
+ComIPX "1" --down--> "1\nreceivedResponse" Response
+'ComTE "1" --down--> "1\nreceivedResponse" Response'
+@enduml
+

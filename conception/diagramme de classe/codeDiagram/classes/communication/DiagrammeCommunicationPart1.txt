@@ -1,0 +1,141 @@
+@startuml
+
+abstract AbstractSocket {
+	# stateSocket : StateSocket
+	# ENCODAGE : String = "UTF-8"
+}
+
+enum StateSocket {
+	+ CONNEXION : StateSocket
+	+ CONNECTED : StateSocket
+	+ ERROR : StateSocket
+	+ KILL : StateSocket
+}
+
+class Brain <<S, Singleton>> {
+
+}
+
+class SocketMessage {
+	+ SocketMessage(int, String)
+	+ getPort() : int
+	+ getMessage() : String
+	- port : int
+	- message : String
+}
+
+class ServerSocketCommunication {
+	- bufferedWriter : BufferedWriter
+	- bufferedReader : BufferedReader
+	- writingThread : Write
+	- mySocket : Socket
+	+ ServerSocketCommunication(Socket)
+	+ writeMessage(String) : void
+	+ readMessage() : SocketMessage
+	+ getStateSocket() : StateSocket
+}
+
+class Write <<T, Thread>> {
+	+ Write(String)
+	+ run() : void
+	- messageToSend : String
+}
+
+ServerSocketCommunication -right- Write
+
+class ServerSocketConnexion {
+	- postmanServer : PostmanServer
+	+ ServerSocketConnexion(PostmanServer, int)
+	+ getStateSocket() : StateSocket
+	+ TW_CONNECTION_SOCKET : int = 1000
+	+ QUEUE_WAIT : int = 100
+	+ IP_ADDRESS : String = "127.0.0.1"
+}
+
+class SetUpConnexion <<T, Thread>>{
+	+ SetUpConnexion(int)
+	+ run() : void
+	- port : int
+}
+
+class ProxyClient <<S, Singleton>> {
+
+}
+
+class Distributor <<S, Singleton>> {
+
+}
+
+class Communication <<S, Singleton>> {
+	- postmanServer : PostmanServer
+	- distributor : Distributor
+	- proxyClient : ProxyClient
+	- mapReadThread : HashMap<Integer, ReadThread>
+	- brain : Brain
+	- instance : Communication
+	- Communication(Brain)
+	+ getInstance(Brain) : Communication
+	+ readComMessage(int) : SocketMessage
+	+ getPostmanServer() : PostmanServer
+	+ onSocketConnected(int) : void
+	+ getProxyClient() : ProxyClient
+}
+
+class ReadThread <<T, Thread>> {
+	+ ReadThread(int)
+	- manageReading() : void
+	+ run() : void
+	- receivedMessage : SocketMessage
+	- port : int
+}
+
+interface ISocketState {
+	+ onSocketConnected(int) : void
+}
+
+
+class PostmanServer <<S, Singleton>> {
+	- PostmanServer()
+	+ getInstance() : PostmanServer
+	+ writeMessage(int, String) : void
+	+ broadcastMessage(String) : void
+	+ broadcastMessageWithPortException(int, String) : void
+	+ readMessage(int) : SocketMessage
+	+ getStateSocket(int) : StateSocket
+	+ addStateSocketObservator(ISocketState) : void
+	+ notifyNewSocketConnected(int, ServerSocketCommunication) : void
+	+ removeSocketCommunication(int) : void
+	+ SERVER_PORT : int = 13579
+	- listSocketStateObservator : ArrayList<ISocketState>
+	- mapServerSocket : HashMap<Integer, ServerSocketCommunication>
+	- instance : PostmanServer
+}
+
+ServerSocketConnexion -- SetUpConnexion
+
+
+AbstractSocket <|-- ServerSocketCommunication
+AbstractSocket <|-- ServerSocketConnexion
+
+Communication --"*" ReadThread
+Communication --"1" Distributor
+Communication --"1" PostmanServer
+Communication --"1" ProxyClient
+
+ProxyClient --"1" PostmanServer
+
+AbstractSocket --"1" StateSocket
+
+ReadThread --"1" SocketMessage
+
+Communication .. ISocketState
+
+PostmanServer --"*" ServerSocketCommunication
+
+Distributor -up-"1" Brain
+Communication -right-"1" Brain
+
+PostmanServer --"1" ISocketState
+ServerSocketConnexion --"1" PostmanServer
+
+@enduml

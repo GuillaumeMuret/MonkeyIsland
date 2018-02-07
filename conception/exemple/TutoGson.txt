@@ -1,0 +1,50 @@
+
+private static void exportJsonFile(File configFile){
+    Gson gson = new Gson();
+
+    // Java object to JSON, and assign to a String
+    String jsonInString = gson.toJson(DataStore.getInstance().getAppConfiguration());
+
+    try {
+        FileWriter writer = new FileWriter(configFile);
+
+        writer.append(jsonInString);
+        writer.flush();
+        writer.close();
+    } catch (Exception e) {
+    }
+}
+
+/**
+ * Manage the json file of the app configuration 
+ * @param configFile : the config file
+ */
+private static void loadJsonFile(File configFile){
+    Gson gson = new Gson();
+    try {
+        DataStore.getInstance().setAppConfiguration(gson.fromJson(new FileReader(configFile), AppConfiguration.class));
+    } catch(Exception e){
+        DataStore.getInstance().setAppConfiguration(new AppConfiguration());
+        LogUtils.error(LogUtils.DEBUG_TAG,"FileNotFoundException => ",e);
+    }
+}
+
+
+
+public class AppConfiguration {
+
+    /** Object ==> PlayerList **/
+    @SerializedName("player_list")
+    private ArrayList<Player> playerList;
+
+    public ArrayList<Player> getPlayerList() {
+        return playerList==null
+                ? playerList = new ArrayList<Player>()
+                : playerList;
+    }
+
+    public void setPlayerList(ArrayList<Player> playerList) {
+        this.playerList = playerList;
+    }
+
+}

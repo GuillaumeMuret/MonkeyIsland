@@ -1,0 +1,145 @@
+@startuml
+
+abstract ProxyModel {
+	+ ProxyModel(PostmanServer)
+	+ sendMessage(int, String) : void
+	+ sendBroadcast(String) : void
+	+ sendBroadcastExceptPort(int, String) : void
+	# postmanServer : PostmanServer
+}
+
+class ProxyClient <<S, Singleton>> {
+	- encoders : HashMap<String, AbstractEncoder> 
+	- instance : ProxyClient
+	- ProxyClient(PostmanServer)
+	+ getInstance(PostmanServer) : ProxyClient
+	+ getEncoders() : HashMap<String, AbstractEncoder>
+}
+
+abstract AbstractEncoder {
+	+ AbstractEncoder(ProxyClient)
+	# proxyClient : ProxyClient
+}
+
+class ErraticMonkeyPosition {
+	+ ErraticMonkeyPosition(ProxyClient)
+	+ sendMessage(int, ArrayList<Monkey>) : void
+	+ sendBroadcast(ArrayList<Monkey>) : void
+	- getEncodedMessageErraticPositions(ArrayList<Monkey) : String
+	+ getErraticMonkeyList(ArrayList<Monkey>) : ArrayList<Monkey>
+}
+
+class HunterMonkeyPosition {
+	+ HunterMonkeyPosition(ProxyClient)
+	+ sendMessage(int, ArrayList<Monkey>) : void
+	+ sendBroadcast(ArrayList<Monkey>) : void
+	- getEncodedMessageHunterPositions(ArrayList<Monkey>) : String
+	+ getHunterMonkeyList(ArrayList<Monkey>) : ArrayList<Monkey>
+}
+
+class IdNewPirateSubscribe {
+	+ IdNewPirateSubscribe(ProxyClient)
+	+ sendMessage(int, Pirate) : void
+}
+
+class MoveAccepted {
+	+ MoveAccepted(ProxyClient)
+	+ sendMessage(int, int, int, int) : void
+}
+
+class MoveRefused {
+	+ MoveRefused(ProxyClient)
+	+ sendMessage(int) : void
+}
+
+class NewGame {
+	+ NewGame(ProxyClient)
+	+ sendBroadcast() : void
+}
+
+class NewPirateOnMap {
+	+ NewPirateOnMap(ProxyClient)
+	+ sendBroadcastExceptPort() : void
+}
+
+class OtherPiratePosition {
+	+ OtherPiratePosition(ProxyClient)
+	+ sendMessage(int, ArrayList<Pirate>) : void
+	- getEncodedMessageOtherPiratePositions(int, ArrayList<Pirate>) : String
+}
+
+class PirateMoved {
+	+ PirateMoved(ProxyClient)
+	+ sendBroadcastExceptPort(int, int, int, int) : void
+}
+
+class PirateRemoved {
+	+ PirateRemoved(ProxyClient)
+	+ sendBroadcast(int) : void
+}
+
+class RumPosition {
+	+ RumPosition(ProxyClient)
+	+ sendMessage(int, ArrayList<Rum>) : void
+	- getEncodedMessageOtherRumPositions(int, ArrayList<Rum>) : String
+}
+
+class RumVisibility {
+	+ RumVisibility(ProxyClient)
+	+ sendBroadcast(Rum) : void
+}
+
+class SetMap {
+	+ SetMap(ProxyClient)
+	+ sendMessage(int, int, int, ArrayList<ArrayList<Square>>) : void
+	- listSquaresAsSingleList(ArrayList<ArrayList<Square>>) : ArrayList<String>
+}
+
+class TreasureFound {
+	+ TreasureFound(ProxyClient)
+	+ sendBroadcast(Treasure) : void
+}
+
+class Communication <<S, Singleton>> {
+
+}
+
+class PostmanServer <<S, Singleton>> {
+
+}
+
+class ServerSocketCommunication {
+
+}
+
+class Write <<T, Thread>> {
+
+}
+
+ProxyModel <|-left- ProxyClient
+
+Communication --"1" PostmanServer
+Communication -up-"1" ProxyClient
+
+AbstractEncoder <|-up- ErraticMonkeyPosition
+AbstractEncoder <|--up- HunterMonkeyPosition
+AbstractEncoder <|---up- IdNewPirateSubscribe
+AbstractEncoder <|----up- MoveAccepted
+AbstractEncoder <|-down- MoveRefused
+AbstractEncoder <|--down- NewGame
+AbstractEncoder <|-left- NewPirateOnMap
+AbstractEncoder <|---down- OtherPiratePosition
+AbstractEncoder <|---up- PirateMoved
+AbstractEncoder <|-right- PirateRemoved
+AbstractEncoder <|--down- RumPosition
+AbstractEncoder <|-down- RumVisibility
+AbstractEncoder <|--up- SetMap
+AbstractEncoder <|-up- TreasureFound
+
+ProxyClient "1"--up-"*" AbstractEncoder
+
+ProxyModel --"1" PostmanServer
+PostmanServer -right-"*"ServerSocketCommunication
+ServerSocketCommunication -right-"1" Write
+
+@enduml

@@ -1,0 +1,71 @@
+\section{Réalisations et Validation}
+\label{sec:rEtV}
+
+Lors de ce projet, il nous était demandé de concevoir, développer, tester un programme informatique basé sur le jeux Monkey Island.\\
+Ce document présente les fonctionnalités qui ont été développées, testées et validées selon un certain nombre d’incrément.
+
+\subsection{Premier incrément}
+\label{subsec:inc1}
+
+\begin{itemize}
+	\item Déplacement des singes erratiques
+
+	Les singes erratiques se déplacent aléatoirement avec une probabilité de 25 \% d’aller dans une des quatre directions haut, bas, droite ou gauche.
+
+	\item Gestion des pirates
+
+	Les pirates se déplacent sur la carte dans l’objectif de trouver le trésor avant de se faire manger par l'un des différents singes du jeu, le tout sans arriver à cours d'énergie.
+
+	\item Gestion du trésor
+
+	La présence du trésor sur la carte du jeu. Découvrir ce trésor permet à un pirate de mettre fin à la partie, et d'en sortir victorieux.
+
+	\item Gestion du fichier de configuration
+
+	Un fichier .json permettant de configurer les différents paramètres et données du jeu.
+\end{itemize}
+
+\subsection{Deuxième incrément}
+\label{subsec:inc2}
+
+\begin{itemize}
+	\item Communication Client – Serveur
+
+	La communication entre le serveur du jeu et les différents clients (joueurs) est faite. Ainsi les joueurs peuvent jouer en temps réel sur la même carte de jeu.
+
+	\item Gestion de l’énergie de chaque pirate
+
+	L’énergie de chaque pirate, fixée à 20 (fichier de configuration), est fonctionnelle. Si un pirate n’a plus d’énergie, il meurt. De plus, s’il dépasse le seuil de son énergie maximum, il devient saoûl.
+
+	\item Gestion des bouteilles de rhum
+
+	Les bouteilles de rhum peuvent être :
+	\begin{itemize}
+		\item soit visible, alors les pirates peuvent les boire et ainsi augmenter leur énergie
+		\item soit invisible, les pirates ne peuvent pas les voir ni les boire.
+	\end{itemize}
+
+	Un timer est mis en place afin de faire ré-apparaître les bouteilles de rhum.
+\end{itemize}
+
+\subsection{Troisième incrément}
+\label{subsec:inc3}
+
+\begin{itemize}
+	\item Gestion des parties
+
+	La découverte du trésor par un pirate signifie la fin de la partie en cours.
+
+	\item Gestion des singes chasseurs
+
+	Les singes chasseurs ont des déplacements « intelligent », c’est-à-dire qu’ils se dirigent vers le pirate le plus proche de leur position. Des tests de modèle de déplacement systématique ont été validés afin d’éviter toute faille dans la gestion des déplacements des singes chasseurs.
+
+	\item Gestion de l’alcoolémie du pirate
+
+	L’alcoolémie du pirate est fonctionnelle. Si un pirate dépasse le seuil de son énergie maximum (20) , il devient saoûl et se déplace comme un singe erratique avec une probabilité de mouvement de 25 \% dans chaque direction (haut, bas, droite et gauche), quelle que soit la direction demandée par le joueur.
+\end{itemize}
+L’utilisation des différents outils à notre disposition (Checkstyle, Findbugs, Subversion) nous a permis d’avoir un code de qualité en préconisant une performance maximale.
+
+\subsection{Fonctions non réalisées}
+\label{subsec:irrealise}
+Le projet, ainsi que les trois incréments ont été testés et validés. Nous n'avons donc actuellement aucune fonctionnalité manquante.

@@ -1,0 +1,19 @@
+@startuml
+title eventWhenMovePirate
+
+CharacterManager -> CharacterManager : eventWhenMove = NONE
+opt object.type == RUM
+	CharacterManager -> CharacterManager : eventWhenMove = DRINK
+end
+opt object.type == TREASURE
+	CharacterManager -> CharacterManager : eventWhenMove = TREASURE
+end
+opt pirate.getEnergy <= ENERGY_TO_REMOVE_WHEN_MOVE
+	CharacterManager -> CharacterManager : eventWhenMove = DIE_BY_ENERGY
+end
+opt characterOnDestination == MONKEY_HUNTER || characterOnDestination == MONKEY_ERRATIC
+	CharacterManager -> CharacterManager : eventWhenMove = DIE_BY_MONKEY
+end
+CharacterManager -> CharacterManager : return eventWhenMove
+
+@enduml

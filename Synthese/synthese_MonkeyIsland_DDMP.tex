@@ -1,0 +1,143 @@
+%-----------------------------------
+% Source de Base rapport ESEO
+%
+% <Type de document>	\TypeDocument
+% <Portée du document>	\PorteeDocument
+%
+%-----------------------------------
+
+\documentclass[a4paper,11pt,titlepage]{article}
+
+\usepackage[english,francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{xspace, graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{lastpage}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{lmodern}
+
+%------------------------------------
+
+\usepackage{fancyhdr}
+\newcommand{\TypeDocument}{Synthèse Projet}
+\newcommand{\AuteurPrincipal}{Clément Pabst}
+\newcommand{\NomGroupeDocument}{Equipe DDMP}
+\newcommand{\IntituleDocument}{Module «~COOL, QL~»}
+\newcommand{\PorteeDocument}{A l'attention des enseignants du module «~COOL, QL~».}
+\pagestyle{fancy}
+
+%%%%Ajouts Clément Pabst, Début :
+
+\usepackage[shortlabels]{enumitem}
+\setlist[itemize]{label=\textbullet}
+
+
+\hypersetup{                    % parametrage des hyperliens
+    colorlinks=true,                % colorise les liens
+    breaklinks=true,                % permet les retours à la ligne pour les liens trop longs
+    urlcolor= black,                 % couleur des hyperliens
+    linkcolor= darkgray,                % couleur des liens internes aux documents (index, figures, tableaux, equations,...)
+    citecolor= black                % couleur des liens vers les references bibliographiques
+    pdfauthor={\AuteurPrincipal},     % author
+    pdfcreator={\AuteurPrincipal},     % creator
+    colorlinks=true,       % false: boxed links; true: colored links
+    pdfsubject={Cahier de Test},   % subject of the document
+    pdftitle={MonkeyIsland - Equipe DDMP},  %title of the document
+    pdfproducer={}
+}
+
+%%%%Ajouts Clément Pabst,  Fin  :
+
+\setlength{\hoffset}{-40pt}
+
+\setlength{\topmargin}{-25pt}
+\setlength{\headsep}{10pt}
+
+\renewcommand{\headheight}{80pt}
+
+\renewcommand{\headwidth}{450pt}
+\setlength{\textwidth}{450pt}
+\setlength{\textheight}{604pt}
+
+\renewcommand{\footrulewidth}{0.1mm}
+
+\fancyhf{}
+        \fancyhead[LO]{\bf \includegraphics[width=60pt]{img/logoeseo.eps} \textsc{Angers}\\
+                                Cycle Ingénieur $3^{\text{éme}}$ année\\
+                                \NomGroupeDocument}
+         \fancyhead[RO]{\bf {\large \IntituleDocument}\\
+				\medskip
+				{\large \TypeDocument}\\
+				\medskip
+				{\small\textit{version du \today}}}
+         \fancyfoot[LO]{\sl \PorteeDocument}
+         \fancyfoot[RO]{\thepage/\pageref{LastPage}}
+
+\setcounter{tocdepth}{3}
+
+%----------------------------------------
+%       DOCUMENT
+%----------------------------------------
+
+\begin{document}
+
+%---------------------------------------
+\setlength\parindent{0pt}
+\sloppy%
+\renewcommand{\arraystretch}{1.5}
+
+%---------------------------------------
+
+\vspace{-2cm}
+\begin{center}
+{\Large {\textsc{\bf \IntituleDocument}}}
+\vspace{0.4cm}\\
+{\large\bf \NomGroupeDocument}
+
+\rule[0.5ex]{0.52\textwidth}{0.1mm}
+
+\vspace{0.2cm}
+{\Large\bf{\TypeDocument}}
+\vspace{0.2cm}\\
+{\Large\bf\textit{\PorteeDocument}}
+\end{center}
+
+\vspace{-0.2cm}
+\noindent\rule[0.5ex]{\textwidth}{0.1mm}
+\textit{Ce document est une synthèse de notre projet «~Monkey Island~». Il est à destination des professeurs en charge du module.}\\
+\rule[0.5ex]{\textwidth}{0.1mm}
+
+\vspace{1cm}
+\begin{tabular}{|p{5cm}|p{9cm}|}
+\hline
+\textbf{Auteurs} & \textbf{Contact} \\\hline
+François de Broch d'Hotelans & francois.debrochdhotelans@reseau.eseo.fr\\\hline
+Cailyn Davies & cailyn.davies@reseau.eseo.fr\\\hline
+Guillaume Muret & guillaume.muret@reseau.eseo.fr\\\hline
+\AuteurPrincipal & clement.pabst@reseau.eseo.fr\\\hline
+\end{tabular}
+\newpage
+
+%------------------------------- 
+
+\tableofcontents
+% alternative pour réduire l'espacement entre les entrées de la table des matières
+% (la valeur numérique peut être adaptée au besoin) : 
+%{\setlength{\baselineskip}{0.96\baselineskip}\tableofcontents\par}
+\newpage
+
+%-------------------------------
+\input{Introduction}
+\newpage
+\input{realisationsEtValidation}
+\newpage
+\input{rapportsEtonnement}
+\end{document}
+
+%--- END

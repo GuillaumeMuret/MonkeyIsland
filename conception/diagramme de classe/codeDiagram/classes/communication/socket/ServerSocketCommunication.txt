@@ -1,0 +1,20 @@
+@startuml
+
+class ServerSocketCommunication {
+	- bufferedWriter : BufferedWriter
+	- bufferedReader : BufferedReader
+	- writingThread : Write
+	- mySocket : Socket
+	+ ServerSocketCommunication(Socket)
+	+ writeMessage(String) : void
+	+ readMessage() : SocketMessage
+	+ getStateSocket() : StateSocket
+}
+
+class Write {
+	+ Write(String)
+	+ run() : void
+	- messageToSend : String
+}
+
+@enduml

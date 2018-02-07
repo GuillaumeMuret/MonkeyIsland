@@ -1,0 +1,29 @@
+@startuml
+title convertMessageAndCallManager : process "/I" subscription
+
+Distributor -> SubscribePirate : convertMessageAndCallManager(params, brain, port)
+SubscribePirate -> CharacterManager : subscribeNewPirate(port)
+
+CharacterManager -> MapManager : groundSquareList = getGroundSquareList()
+CharacterManager -> ObjectManager : objectList = getObjectList()
+
+CharacterManager -> PositionUtils : getSpawnPosition(groundSquareList, characterList, objectList)
+ref over PositionUtils : getSpawnPosition(groundSquareList, characterList, objectList)
+PositionUtils --> CharacterManager : piratePosition
+
+opt piratePosition != null
+opt !isPirateInList(port)
+Create Pirate
+CharacterManager -> Pirate : <<create and add in list>> Pirate(port, energy)
+CharacterManager -> Brain : notifyPirateSubscribed(pirate)
+
+Brain -> Communication : sendPirateSubscribed
+Brain -> MapManager : onPirateSubscribed(port)
+ref over MapManager : MapManager_onPirateSubscribed
+Brain -> ObjectManager : onPirateSubscribed(port)
+ref over ObjectManager : ObjectManager_onPirateSubscribed
+Brain -> CharacterManager : onPirateSubscribed(port)
+ref over CharacterManager : CharacterManager_onPirateSubscribed
+
+
+@enduml

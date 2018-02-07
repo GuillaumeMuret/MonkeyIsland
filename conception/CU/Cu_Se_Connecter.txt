@@ -1,0 +1,25 @@
+
+
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Joueur
+actor Serveur
+
+rectangle seConnecter {
+
+Joueur  --> (IP)
+
+(IP)    --> (Envoi)
+
+(Envoi) --> Serveur
+
+(Retour infos) <-- Serveur
+
+Joueur 	<-- (Retour infos)
+
+}
+
+@enduml

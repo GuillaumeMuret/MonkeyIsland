@@ -1,0 +1,28 @@
+@startuml
+
+class Communication <<S, Singleton>> {
+	- postmanServer : PostmanServer
+	- distributor : Distributor
+	- proxyClient : ProxyClient
+	- mapReadThread : HashMap<Integer, ReadThread>
+	- brain : Brain
+	- instance : Communication
+	- Communication(Brain)
+	+ getInstance(Brain) : Communication
+	+ readComMessage(int) : SocketMessage
+	+ getPostmanServer() : PostmanServer
+	+ onSocketConnected(int) : void
+	+ getProxyClient() : ProxyClient
+}
+
+class ReadThread <<T, Thread>> {
+	+ ReadThread(int)
+	- manageReading() : void
+	+ run() : void
+	- receivedMessage : SocketMessage
+	- port : int
+}
+
+Communication - ReadThread
+
+@enduml

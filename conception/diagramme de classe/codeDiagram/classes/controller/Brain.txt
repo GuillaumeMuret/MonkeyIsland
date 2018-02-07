@@ -1,0 +1,44 @@
+@startuml
+
+class Brain <<S,Singleton>> {
+	- communication : Communication
+	- characterManager : CharacterManager
+	- mapManager : MapManager
+	- objectManager : ObjectManager
+	- instance : Brain
+	- Brain()
+	+ wakeUpBrain() : void
+	+ getInstance() : Brain
+	+ getCharacterManager() : CharacterManager
+	+ getMapManager() : MapManager
+	+ getObjectManager() : ObjectManager
+	+ getCommunication() : Communication
+	+ setCharacterManager(ChracterManager) : void
+	+ setMapManager(MapManager) : void
+	+ setObjectManager(ObjectManager) : void
+	+ sendPirateSubscribed(int, Pirate) : void
+	+ sendNewPirateOnMap(int, Pirate) : void
+	+ sendPirateMoveAccepted(Pirate) : void
+	+ sendMapToClient(int, Map) : void
+	+ sendOtherPiratePosition(int, ArrayList<Pirate>) : void
+	+ sendErraticMonkeyPosition(int, ArrayList<Monkey>) : void
+	+ sendBroadcastErraticMonkeyPosition(ArrayList<Monkey>) : void
+	+ sendHunterMonkeyPosition(int, ArrayList<Monkey>) : void
+	+ sendBroadcastHunterMonkeyPosition(ArrayList<Monkey>) : void
+	+ sendPirateMoveRefused(int) : void
+	+ sendRumBottleVisibility(Rum) : void
+	- sendTreasureFound(Treasure) : void
+	- sendPirateRemoved(int) : void
+	- sendNewGame() : void
+	+ notifyNewConnection() : void
+	+ notifyInitAll() : void
+	+ notifyPirateSubscribed(Pirate) : void
+	+ notifyPirateDead(Pirate) : void
+	+ notifyRumDrunk(Rum) : void
+	+ notifyRumReappear(Rum) : void
+	+ notifyTreasureFound(Treasure) : void
+	+ notifyRemovePirate(int) : void
+	+ notifyPirateReinitialisation(Pirate) : void
+}
+
+@enduml

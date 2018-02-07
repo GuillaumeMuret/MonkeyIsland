@@ -1,0 +1,33 @@
+@startuml
+
+title isPossibleMoveMonkey
+
+CharacterManager -> CharacterManager : movePossible = false
+CharacterManager -> CharacterManager : possibleSquareTypes.add(GROUND)
+CharacterManager -> CharacterManager : possiblePositionX = possiblePosition.getPositionX()
+CharacterManager -> CharacterManager : possiblePositionY = possiblePosition.getPositionY()
+CharacterManager -> Map : width = getWidth()
+CharacterManager -> Map : height = getHeight()
+CharacterManager -> Map : squareType = getSquareType(possiblePosition)
+ref over CharacterManager : monkeyOnThisPosition = isMonkeyOnThisPosition(possiblePosition)
+
+opt positionX < width
+opt positionY < height
+opt positionX >= 0
+opt positionY >= 0
+opt possibleSquareTypes.contains(squareType)
+opt !monkeyOnThisPosition
+
+
+CharacterManager -> CharacterManager : movePossible = true
+
+end
+end
+end
+end
+end
+end
+
+CharacterManager -> CharacterManager : return movePossible
+
+@enduml

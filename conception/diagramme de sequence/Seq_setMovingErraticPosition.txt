@@ -1,0 +1,18 @@
+@startuml
+
+title setMovingErraticPosition
+
+CharacterManager -> StoreCommand : getCommandErraticPosition().getPosition(monkey)
+
+ref over CharacterManager : possiblePositionsList = getAllPossiblePositions(erraticMonkey)
+
+opt possiblePositions.size() > 1
+CharacterManager -> CharacterManager : randomPositionIndex = getRandomPosition(possiblePositionsList)
+
+CharacterManager -> Monkey : setPosition(possiblePositionsList[randomPositionIndex])
+end
+opt possiblePositionsList.size() == 1
+CharacterManager -> Monkey : setPosition(possiblePositionsList[0])
+end
+
+@enduml

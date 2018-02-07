@@ -1,0 +1,14 @@
+@startuml
+
+class ProtocolVocabulary {
+	+ COMMAND_STRING_SIZE : int = 2
+	+ SEPARATOR_WHITESPACE : String = " "
+	+ SEPARATOR_MINUS : String = "-"
+	+ SEPARATOR_UNDERSCORE : String = "_"
+	+ SEPARATOR_3_UNDERSCORE : String = "___"
+	+ GROUND_VALUE : String = "1"
+	+ SEA_VALUE : String = "0"
+	+ ERROR_PROCESS : String = "ERROR_PROCESS"
+}
+
+@enduml

@@ -1,0 +1,171 @@
+ @startuml
+class CharacterManager <<S,Singleton>> {
+	- brain : Brain
+	- pirateList : ArrayList<Pirate>
+	- monkeyList : ArrayList<Monkey>
+	- instance : CharacterManager
+	- timerHunter : Timer
+	- timerErratic : Timer
+	- CharacterManager(Brain)
+	+ getInstance(Brain) : CharacterManager
+	+ getMonkeys() : ArrayList<Monkey>
+	+ setMonkeyList(ArrayList<Monkey>) : void
+	+ getPiratesList() : ArrayList<Pirate>
+	+ setPirateList(ArrayList<Pirate>) : void
+	- isValidPirateMove(int,int) : boolean
+	- initMonkeys() : void
+	+ askMovePirate(int, int, int) : void
+	- managePirateMovePossible(int, Pirate, Position) : void
+	- computePirateEvent(CharacterEventWhenMove, Pirate, GameObject) : void
+	+ getPirateFromPort(int) : Pirate
+	- getPositionDestination(Position, int, int) : Position
+	- getCharacterInPosition(Position) : Character
+	- canMovePirate(Character, SquareType, Character) : boolean
+	+ getCharacterList() : ArrayList<Character>
+	- eventWhenMovePirate(Character, Character, GameObject) : CharacterEventWhenMove
+	- subscribeNewPirate(int) : void
+	- removePirate(int) : void
+	- isPirateAlreadyInList(int) : boolean
+	- eventWhenMoveMonkey() : void
+	- manageNextMoveThreadMonkeysErratic() : void
+	- manageNextMoveThreadMonkeysHunter() : void
+	- askMoveMonkeys(CharacterType) : void
+	- setMovingErraticPosition(Monkey) : void
+	- setMovingHunterPosition(Monkey) : void
+	- getPirateOnPosition(Position) : Pirate
+	+ remakeAllPiratePosition() : void
+	+ getNumberOfPirateAlive() : int
+	+ onNewConnection() : void
+	+ onInitAll() : void
+	+ onPirateSubscribed(int) : void
+	- startMonkeyMouvement() : void
+	+ onPirateDead(Pirate) : void
+	+ onRumDrunk(Rum) : void
+	+ onRumReappear(Rum) : void
+	+ onTreasureFound(Treasure) : void
+	+ onRemovePirate(int) : void
+}
+
+enum Direction{
+	+ LEFT
+	+ RIGHT
+	+ UP
+	+ DOWN
+}
+
+class ThreadMoveMonkeysErratic <<T,Thread>> {
+	+ run() : void
+}
+
+class ThreadMoveMonkeysHunter <<T,Thread>> {
+	+ run() : void
+}
+
+abstract Character{
+	- position : Position
+	- characterType : CharacterType
+	- characterEventWhenMove : CharacterEventWhenMove
+	- state : State
+	+ Character(Position, CharacterType)
+	+ getType() : CharacterType
+	+ setType(CharacterType) : void
+	+ getPosition() : Position
+	+ setPosition(Position) : void
+	+ moveCharacter(Position) : void
+	+ getState() : State
+	+ setState(State) : void
+}
+
+enum State {
+	+ DEAD : State
+	+ DRUNK : State
+	+ NORMAL : State
+	+ KILL : State
+	+ WINNER : State
+}
+
+enum CharacterType {
+	+ PIRATE : CharacterType
+	+ MONKEY : CharacterType
+}
+
+enum CharacterEventWhenMove {
+	+ value : String
+	- CharacterEventWhenMove(String)
+	+ NONE : CharacterEventWhenMove
+	+ DIE_BY_MONKEY : CharacterEventWhenMove
+	+ DIE_BY_ENERGY : CharacterEventWhenMove
+	+ DRINK : CharacterEventWhenMove
+	+ TREASURE : CharacterEventWhenMove
+	+ KILL : CharacterEventWhenMove
+}
+
+class Pirate {
+	- port : int
+	- energy : Energy
+	+ Pirate(Position, int, Energy)
+	+ getPort() : int
+	+ setPort(int) : void
+	+ getEnergy() : Energy
+	+ setEnergy() : void
+	+ addEnergy(Energy) : void
+	+ removeEnergy(Energy) : void
+}
+
+class PathFindHunterUtils {
+	+ calculateHunterMove(Position, Brain)
+}
+
+interface CommandPosition {
+	+ getPosition()
+}
+
+class StoreCommand {
+	+ getCommandSpawnPosition()
+	+ getCommandErraticPosition()
+	+ getCommandHunterPosition()
+}
+
+class Energy {
+	- value : int
+	+ Energy(int)
+	+ getValue() : int
+	+ setValue(int) : void
+}
+
+class Monkey {
+	+ Monkey(Position, MonkeyType)
+}
+
+enum MonkeyType {
+	+ MonkeyType : ERRATIC
+	+ MonkeyType : HUNTER
+}
+
+CharacterManager -- Direction
+CharacterManager -- ThreadMoveMonkeysErratic
+CharacterManager -- ThreadMoveMonkeysHunter
+CharacterManager -up-"0..*"Pirate
+
+Monkey --"1" MonkeyType
+
+Character <|-- Pirate
+Character <|-- Monkey
+Character --"1" CharacterType
+Character --"1" State
+Character -left-"1" CharacterEventWhenMove
+CharacterManager -up- "0..*"Monkey
+Pirate --"1" Energy
+
+CharacterManager --> StoreCommand
+
+StoreCommand -up-> CommandHunterPosition
+StoreCommand -up-> CommandErraticPosition
+StoreCommand -up-> CommandSpawnPosition
+
+CommandPosition <|-- CommandHunterPosition
+CommandPosition <|-- CommandErraticPosition
+CommandPosition <|-- CommandSpawnPosition
+
+CommandHunterPosition -up-> PathFindHunterUtils
+@enduml

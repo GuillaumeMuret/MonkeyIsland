@@ -1,0 +1,23 @@
+@startuml
+title computePirateEvent
+
+alt eventWhenMove == DIE_BY_ENERGY || eventWhenMove == DIE_BY_MONKEY
+	CharacterManager -> CharacterManager : pirate.setEnergy(0)
+	CharacterManager -> CharacterManager : pirate.setState(DEAD)
+	CharacterManager -> Communication : sendPirateMoveAccepted(pirate)
+	CharacterManager -> Brain : notifyPirateDead(pirate)
+	ref over Brain : notifyPirateDead(pirate)
+else eventWhenMove == DRINK
+	CharacterManager -> CharacterManager : pirate.addEnergy(rum.getEnergy())
+	CharacterManager -> Communication : sendPirateMoveAccepted(pirate)
+	CharacterManager -> Brain : notifyRumDrunk(rum)
+	ref over Brain : notifyRumDrunk(rum)
+else eventWhenMove == TREASURE
+	CharacterManager -> Communication : sendPirateMoveAccepted(pirate)
+	CharacterManager -> Brain : notifyTreasureFound(treasure)
+	ref over Brain : notifyTreasureFound(treasure)
+else eventWhenMove == NONE
+	CharacterManager -> Communication : sendPirateMoveAccepted(pirate)
+end
+
+@enduml

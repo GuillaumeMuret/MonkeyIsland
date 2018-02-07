@@ -1,0 +1,44 @@
+@startuml
+
+title setMovingHunterPosition
+
+CharacterManager -> StoreCommand : getCommandHunterPosition().getPosition(monkeyHunter)
+
+StoreCommand -> PathFindHunterUtils : calculateHunterMove(startPosition, brain)
+
+PathFindHunterUtils -> PathFindHunterUtils : currentPathFindPosList.add(startPosition)
+
+PathFindHunterUtils -> PathFindHunterUtils : usedList.add(startPosition)
+
+PathFindHunterUtils -> PathFindHunterUtils : currentList.add(startPosition)
+
+ref over PathFindHunterUtils : getValidNeigbours(currentList, usedList, parents, brain)
+
+PathFindHunterUtils -> PathFindHunterUtils : movableSpaces = currentList
+
+opt movableSpaces.size() > 1
+	loop !pirateFound and list.size() > 0
+		PathFindHunterUtils -> PathFindHunterUtils : pos = list.contains(pirate)
+		opt pos == null
+			ref over PathFindHunterUtils : getValidNeigbours(currentList, usedList, parents, brain)
+		end
+		opt pos != null
+			PathFindHunterUtils -> PathFindHunterUtils : pirateFound = true;
+			loop !movableSpaces.contains(pos)
+				PathFindHunterUtils -> PathFindHunterUtils : pos = pos.getParent()
+			end
+		end
+	end
+	opt !movableSpaces.contains(pos)
+		PathFindHunterUtils -> PathFindHunterUtils : pos = movableSpaces.get(random(0,movableSpaces.size()))
+	end
+end
+opt movableSpaces.size() == 1
+	PathFindHunterUtils -> PathFindHunterUtils : goTo = movableSpaces[0]
+end
+
+PathFindHunterUtils --> CharacterManager : pos
+
+CharacterManager -> Monkey : monkeyHunter.setPosition(pos)
+
+@enduml

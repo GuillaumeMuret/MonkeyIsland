@@ -1,0 +1,104 @@
+Inc 1
+DEPLACEMENT SINGES ERRATIQUES :
+Déplacement ok terre vide H-B-G-D			& oui
+Pas de déplacement en diagonale terre vide	& oui
+Obligation de déplacement terre vide		& oui
+Pas de déplacement possible (mer)			& oui
+Pas de déplacement possible (erratiques)	& oui
+Pas de déplacement possible (chasseurs)		& oui
+Déplacement ok - trésor caché -> caché		& oui
+Déplacement ok - pirate vivant -> mort		& oui
+Déplacement ok - pirate mort -> mort		& oui
+Déplacement ok - rhum dispo -> dispo		& oui
+Equiprobabilité pour 4				& oui
+Equiprobabilité pour 3				& oui
+Equiprobabilité pour 2				& oui
+Non équiprobabilité stricte pour 4	& oui
+Non équiprobabilité stricte pour 3	& oui
+Non équiprobabilité stricte pour 2	& oui
+Schéma non répétitif pour 4			& TODO
+Schéma non répétitif pour 3			& TODO
+Schéma non répétitif pour 2			& TODO
+Pas de déplacement "nuageux"		& oui
+
+GESTION DES PIRATES :
+Déplacement ok terre vide H-B-G-D			& oui
+Pas de déplacement en diagonale terre vide	& oui
+Pas de déplacement si instruction = 0-0		& oui
+Pas de déplacement possible (mer)			& oui
+Pas de déplacement possible (pirate)		& oui
+Pas de déplacement possible (vide)			& oui
+Pas de déplacement hors carte				& oui
+Déplacement sur singe erratique -> mort		& oui
+Déplacement sur singe chasseur -> mort		& oui
+Déplacement sur rhum -> énergie<ENERGIE_MAX	& oui
+Déplacement sur rhum -> énergie>ENERGIE_MAX	& oui
+Déplacement sur rhum -> énergie=ENERGIE_MAX	& oui
+Pas de déplacement si mort, case terre		& oui
+Pas de déplacement si mort, case terre et rhum & oui
+Déplacement sur trésor -> découverte trésor (visibilité change) et fin de partie & oui
+Pas de résurrection d'un pirate mort lors de réaparition de rhum & oui
+Déplacement sur trésor et singe -> découverte trésor, fin de partie et mort & oui
+
+Gestion du trésor :
+TODO TODEFINE
+
+Gestion du fichier de configuration :
+Si on a fini tout le reste, TODO TODEFINE
+
+
+Inc 2
+Communication client-serveur :
+TODO
+SubscribePirateTest.testToDoooo
+MovePirateTest.testToDoooo
+CommunicationTest.testToDoooo
+DistributorTest.testToDoooo
+PostmanServerTest.testToDoooo
+
+Gestion de l'énergie de chaque pirate :
+TODO TODEFINE
+
+Gestion des bouteilles de rhum :
+TODO TODEFINE
+
+
+Inc 3
+Gestion des parties :
+TODO TODEFINE
+
+Gestion des singes chasseurs:
+testAskMoveMonkeyHunterMove			& OK
+testAskMoveMonkeyHunterAroundSea	& OK
+testAskMoveMonkeyHunterTreasure		& OK
+testAskMoveMonkeyHunterRum			& OK
+testAskMoveMonkeyHunterFollowPirate	& OK
+
+Déplacement ok terre vide H-B-G-D 			& ?oui
+Pas de déplacement en diagonale terre vide 	& ?oui
+Obligation de déplacement terre vide 		& ?oui
+Pas de déplacement possible (mer) 			& ?oui
+Pas de déplacement possible (erratiques)	& ?oui
+Pas de déplacement possible (chasseurs)		& ?oui
+Déplacement ok - trésor caché -> caché		& ?oui
+Déplacement ok - rhum dispo -> dispo		& ?oui
+Déplacement suis le pirate					& ?oui
+Déplacement ok - pirate vivant -> mort		& ?oui
+Déplacement ok - pirate mort -> mort		& ?oui
+
+Gestion du pathfind des singes chasseurs
+SetParents						& oui
+RemoveChecked					& oui
+RemoveImpossibleMonkeyPositions	& oui
+GetNeighbours					& oui
+GetValidNeighbours				& oui
+containsPirate					& oui
+calculateHunterMove				& oui
+
+Gestion de l'alcoolémie :
+TODO TODEFINE
+
+
+
+
+

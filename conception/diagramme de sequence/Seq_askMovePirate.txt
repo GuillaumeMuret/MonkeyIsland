@@ -1,0 +1,26 @@
+@startuml
+title askMovePirate
+
+	Distributor -> MovePirate : convertMessageAndCallManager(params, brain, port)
+	opt params.size() = 2 && isDigit(params.get(0)) && isDigit(params.get(1))
+		MovePirate -> CharacterManager : askMovePirate(port, params.get(0), params.get(1));
+		alt isValidMove(dirX, dirY) == true
+			CharacterManager -> CharacterManager : pirate = getPirate(port)
+			CharacterManager -> CharacterManager : goToPosition = getPositionDestination(piratePosition, xDir, yDir)
+			CharacterManager -> MapManager : type = getSquareType(goToPosition)
+			CharacterManager -> CharacterManager : otherCharacter = getCharacterInPosition(goToPosition)
+			CharacterManager -> CharacterManager : movePossible = canMovePirate(pirate, squareType, otherCharacter)
+			alt movePossible == true
+				CharacterManager -> Pirate : moveCharacter(goToPosition)
+				CharacterManager -> ObjectManager : gameObject = getObjectInPosition(goToPosition)
+				ref over CharacterManager : event = eventWhenMovePirate(pirate, otherCharacter, gameObject)
+				CharacterManager -> Pirate : removeEnergy(ENERGY_TO_REMOVE_WHEN_MOVE)
+				ref over CharacterManager : computePirateEvent(event, pirate, otherCharacter, gameObject)
+			else movePossible == false
+				CharacterManager -> Communication : sendPirateMoveRefused(port)
+			end
+		else isValidMove(dirX, dirY) == false
+			CharacterManager -> Communication : sendPirateMoveRefused(port)
+		end
+	end
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+title CharacterManager : onInitAll
+
+CharacterManager -> CharacterManager : initMonkeys()
+CharacterManager -> GameConfig : monkeyList = getMonkeyList()
+
+@enduml

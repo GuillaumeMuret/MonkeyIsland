@@ -1,0 +1,74 @@
+@startuml
+
+class CharacterManager <<S, Singleton>> {
+	- brain : Brain
+	- pirateList : ArrayList<Pirate>
+	- monkeyList : ArrayList<Monkey>
+	- instance : CharacterManager
+	- CharacterManager(Brain)
+	+ getInstance(Brain) : CharacterManager
+	+ getMonkeys() : ArrayList<Monkey>
+	+ setMonkeyList(ArrayList<Monkey>) : void
+	+ getPiratesList() : ArrayList<Pirate>
+	+ setPirateList(ArrayList<Pirate>) : void
+	- isValidPirateMove(int,int) : boolean
+	- initMonkeys() : void
+	- initRandomMonkeys() : void
+	+ askMovePirate(int, int, int) : void
+	- managePirateMovePossible(int, Pirate, Position) : void
+	- computePirateEvent(CharacterEventWhenMove, Pirate, GameObject) : void
+	+ getPirateFromPort(int) : Pirate
+	- getPositionDestination(Position, int, int) : Position
+	- getCharacterInPosition(Position) : Character
+	- canMovePirate(Character, SquareType, Character) : boolean
+	+ getCharacterList() : ArrayList<Character>
+	- eventWhenMove(Character, Character, GameObject) : CharacterEventWhenMove
+	- subscribeNewPirate(int) : void
+	- removePirate(int) : void
+	- isPirateAlreadyInList(int) : boolean
+	- eventWhenMoveMonkey() : void
+	- manageNextMoveThreadMonkeysErratic() : void
+	- manageNextMoveThreadMonkeysHunter() : void
+	- askMoveMonkeys(CharacterType) : void
+	- setMovingErraticPosition(Monkey) : void
+	- manageHunterMovement(Monkey, Direction) : boolean
+	- setMovingHunterPosition(Monkey) : void
+	- getNearestPiratePosition(Monkey) : Position
+	- getSmallestDistancePositionInList(ArrayList<Integer>) : int
+	- getAllPossiblePositions(Monkey) : ArrayList<Position>
+	- isPossibleMoveMonkey(Position) : boolean
+	- getHunterMonkeyDirectionPriority(int, int) : Direction[]
+	- getPirateOnPosition(Position) : Pirate
+	- isMonkeyOnThisPosition(Position) : boolean
+	+ remakeAllPiratePosition() : void
+	+ onNewConnection() : void
+	+ onInitAll() : void
+	+ onPirateSubscribed(int) : void
+	+ onPirateDead(Pirate) : void
+	+ onRumDrunk(Rum) : void
+	+ onRumReappear(Rum) : void
+	+ onTreasureFound(Treasure) : void
+	+ onRemovePirate(int) : void
+}
+
+enum Direction{
+	+ LEFT
+	+ RIGHT
+	+ UP
+	+ DOWN
+}
+
+class ThreadMoveMonkeysErratic <<T,Thread>> {
+	+ run() : void
+}
+
+class ThreadMoveMonkeysHunter <<T,Thread>> {
+	+ run() : void
+}
+
+CharacterManager -- Direction
+CharacterManager -- ThreadMoveMonkeysErratic
+CharacterManager -- ThreadMoveMonkeysHunter
+
+@enduml
+

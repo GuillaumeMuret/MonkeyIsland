@@ -1,0 +1,37 @@
+%--------------------------------------
+% IV Processus et stratégie de test
+%--------------------------------------
+
+\chapter{Processus et stratégie de test}
+	\section{Activités}
+
+\textbf{Tests d'Intégration} : ils sont composés de tests nominaux entre Serveur et Client(s).\\
+
+\textbf{Tests Unitaires} : ils sont composés de tests nominaux sur certains modules du composant Serveur.
+
+	\section{Techniques de test}
+
+L'activité de test sera constituée d'une analyse partitionnelle pour étudier les cas nominaux. Toutes ces analyses seront regroupées dans le cahier de test (ENT/test/cahier\_test).
+	
+	\section{Outils de test}
+	
+\begin{table}[!h]
+\begin{center}		
+\begin{tabular}{|p{3cm}|p{2cm}|p{8cm}|}
+\hline
+\textbf{Outils} & \textbf{Version} & \textbf{Fonction}\\
+\hline
+JMeter & 1.6.1 & Logiciel de test utilisé pour tester nos communications\\
+\hline
+JUnit & 4 & Framework de test unitaire pour Java\\
+\hline
+FindBugs-IDEA & 1.0.1 & Framework de test Java pour IntelliJ IDEA\\
+\hline
+PowerMock & 1.7.3 & Framework de test Java utilisé pour bouchonner certaines instances\\
+\hline
+\end{tabular}	
+\end{center}
+\caption{Table des outils de test}
+\end{table}
+	
+\newpage

@@ -1,0 +1,47 @@
+ @startuml
+class CharacterManager <<S,Singleton>> {
+	- pirateList : ArrayList<Pirate>
+	- monkeyList : ArrayList<Monkey>
+	- isValidPirateMove(int,int) : boolean
+	+ askMovePirate(int, int, int) : void
+	- managePirateMovePossible(int, Pirate, Position) : void
+	- getCharacterInPosition(Position) : Character
+	- canMovePirate(Character, SquareType, Character) : boolean
+	- getPirateOnPosition(Position) : Pirate
+}
+
+enum Direction{
+	+ LEFT
+	+ RIGHT
+	+ UP
+	+ DOWN
+}
+
+class PathFindHunterUtils {
+	+ calculateHunterMove(Position, Brain)
+}
+
+interface CommandPosition {
+	+ getPosition()
+}
+
+class StoreCommand {
+	+ getCommandSpawnPosition()
+	+ getCommandErraticPosition()
+	+ getCommandHunterPosition()
+}
+
+CharacterManager -- Direction
+
+CharacterManager -up-> StoreCommand
+
+StoreCommand -up-> CommandHunterPosition
+StoreCommand -up-> CommandErraticPosition
+StoreCommand -up-> CommandSpawnPosition
+
+CommandPosition <|-- CommandHunterPosition
+CommandPosition <|-- CommandErraticPosition
+CommandPosition <|-- CommandSpawnPosition
+
+CommandHunterPosition -up-> PathFindHunterUtils
+@enduml

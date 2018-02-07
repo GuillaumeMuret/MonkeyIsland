@@ -1,0 +1,19 @@
+@startuml
+
+MapManager -> Map : initMap()
+
+Map -> Map : iterateurMapHeight = 0
+Map -> Map : iterateurMapWidth = 0
+
+Map -> GameConfig : squareList = getSquaresList()
+Map -> Map : initGroundSquareList()
+loop iterateurMapWidth < MAP_WIDTH
+	loop iterateurMapHeight < MAP_HEIGHT
+		Map -> Square : squareType = getSquareType(iterateurMapWidth, iterateurMapHeight)
+		opt squareType == GROUND
+			Map -> Map : groundSquareList.add(squareList.get(iterateurMapWidth).get(iterateurMapHeight))
+		end
+	end
+end
+
+@enduml

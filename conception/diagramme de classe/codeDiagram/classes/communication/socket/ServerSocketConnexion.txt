@@ -1,0 +1,18 @@
+@startuml
+
+class ServerSocketConnexion {
+	- postmanServer : PostmanServer
+	+ ServerSocketConnexion(PostmanServer, int)
+	+ getStateSocket() : StateSocket
+	+ TW_CONNECTION_SOCKET : int = 1000
+	+ QUEUE_WAIT : int = 100
+	+ IP_ADDRESS : String = "127.0.0.1"
+}
+
+class SetUpConnexion {
+	+ SetUpConnexion(int)
+	+ run() : void
+	- port : int
+}
+
+@enduml

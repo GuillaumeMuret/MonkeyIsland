@@ -1,0 +1,7 @@
+@startuml
+
+class SubscribePirate {
+	+ convertMessageAndCallManager(String, Brain, int) : void
+}
+
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+
+interface ICommandFromClient {
+	+ convertMessageAndCallManager(String, Brain, int) : void
+}
+
+@enduml

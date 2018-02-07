@@ -1,0 +1,108 @@
+%-----------------------------------
+% Projet Systèmes Critiques
+%
+% <Type de document>
+% <Portée du document>
+% - <titre section>
+%-----------------------------------
+
+\section{Pirates}
+\label{sec:pirates}
+
+\subsection{Déplacements}
+\label{subsec:piratesDeplacements}
+
+Le but ici va être de valider l'ensemble des déplacements des pirates, incluant leurs interactions avec les autres éléments du jeu (autres personnages, objets et fin de partie).\\
+Au cours de ses tests, on peut tester visuellement que les singes respectent le cahier des charges.
+
+\subsubsection{Déplacements de base d'un Pirate}\label{subsubsec:depBasePirate}
+\textbf{Résumé :} S'assurer que l'ensemble des déplacements d'un pirate fonctionne. Tous les déplacements sont faits sans détours.\\
+\textbf{Précondition :} Pirate placé, entouré de cases terre vides. Une case mer est présente plus loin ainsi qu'un autre pirate qui restera immobile. Le trésor est en place lui aussi, à un endroit connu du testeur. L'ensemble des déplacements nécessaire au scénario est inférieur à l'énergie de départ du pirate.
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{|p{6pt}|c|c|}%p{10cm}
+			\hline
+			& \textbf{Etape} & \textbf{Résultat(s) Attendu(s)} \\\hline
+			1 & Presser successivement H-B-G-D & Déplacement du pirate H-B-G-D  \\\hline
+			2 & Presser simultanément HD||DB||BG||GH & Pas de déplacement \\\hline
+			3 & Déplacer le pirate sur la case mer & Pas de déplacement \\\hline
+			4 & Déplacer le pirate sur l'autre pirate & Pas de déplacement \\\hline
+			5 & Déplacer le pirate en dehors de la map & Pas de déplacement \\\hline
+			6 & Déplacer le pirate sur le trésor & Victoire et redémarrage de la partie \\\hline
+		\end{tabular}
+	\end{center}
+	\caption{Scénario de déplacement d'un Pirate, obstacle et victoire}
+\end{table}
+
+\newpage
+\subsubsection{Déplacements \& Interactions d'un Pirate avec d'autres éléments du jeu}
+\textbf{Résumé :} S'assurer que la rencontre avec un singe tue le pirate.\\
+\textbf{Précondition :} Pirate placé, entouré de cases terre vides. Une bouteille de rhum est placée, visible et pleine, juste à côté du pirate. Un singe chasseur et un singe erratique sont présents sur la carte.\\
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{|p{6pt}|c|c|}
+			\hline
+			& \textbf{Etape} & \textbf{Résultat(s) Attendu(s)} \\\hline
+			1 & Déplacer le pirate sur & Mort du pirate et\\
+			 & le singe erratique/chasseur & redémarrage de la partie \\\hline
+		\end{tabular}
+	\end{center}
+	\caption{Scénario de déplacement d'un Pirate, rencontre avec un singe erratique/chasseur}
+\end{table}
+
+\textbf{Précondition supplémentaire :} Un autre pirate est présent et se contente d'éviter les singes sans autre interraction.
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{|p{6pt}|c|c|}
+			\hline
+			& \textbf{Etape} & \textbf{Résultat(s) Attendu(s)} \\\hline
+			1 & Déplacer le pirate sur le rhum & Augmentation de l'énergie et\\
+			 &  & changement d'état (DRUNK) \\\hline
+			2 & Attendre un singe (rester statique) & Mort du pirate \\\hline
+			3 & Attente de la réapparition du rhum & Réapparition du rhum, pas de\\
+			 &  & changement de l'état(DEAD) du pirate \\\hline
+			4 & Déplacer le pirate & Pas de déplacement \\\hline
+			5 & Le second pirate fini par s'arrêter & Le singe chasseur tue le pirate \\
+			 & & et la partie redémarre. \\\hline
+		\end{tabular}
+	\end{center}
+	\caption{Scénario de déplacement d'un Pirate, rencontre avec un singe et mort sur rhum}
+\end{table}
+
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{|p{6pt}|c|c|}%p{10cm}
+			\hline
+			& \textbf{Etape} & \textbf{Résultat(s) Attendu(s)} \\\hline
+			1 & Déplacer le pirate à côté du trésor & Rien \\
+			 & sans autre interraction &  \\\hline
+			 & Attendre que le singe chasseur soit sur & Découverte du trésor,\\
+			2 & la case du trésor puis déplacer le pirate &   fin de partie\\
+			 & sur la case contenant le trésor et le singe &  et mort du pirate\\\hline
+		\end{tabular}
+	\end{center}
+	\caption{Scénario de déplacement d'un Pirate, fin de partie et mort simultanées}
+\end{table}
+
+\newpage
+\subsection{Energie}
+\label{subsec:piratesEnergie}
+\textbf{Résumé :} Le but ici va être de valider les conséquences d'un manque d'énergie du pirate ainsi que ses rencontres avec du rhum selon son niveau d'énergie.\\
+\textbf{Précondition :} Pirate placé, une carte peuplée uniquement de cases terre vides ainsi que de trois bouteilles de rhum.
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{|p{6pt}|c|c|}%p{10cm}
+			\hline
+			& \textbf{Etape} & \textbf{Résultat(s) Attendu(s)} \\\hline
+			1 & Déplacer le pirate sur une bouteille avec & Déplacements suivants normaux \\
+			 & l'énergie<ENERGIE MAX après recharge & \\\hline
+
+			2 & Déplacer le pirate sur une bouteille avec & Déplacements suivants normaux \\
+			 & l'énergie=ENERGIE MAX après recharge & \\\hline
+			3 & Déplacer le pirate sur une bouteille avec & Déplacements suivants aléatoires jusqu'à une \\
+			 & l'énergie>ENERGIE MAX après recharge & baisse d'énergie => énergie=ENERGIE MAX\\\hline
+			4 & Déplacer le pirate jusqu'à énergie=0 & Mort du pirate \\\hline
+		\end{tabular}
+	\end{center}
+	\caption{Scénario de déplacement d'un Pirate, ainsi que son rapport à l'énergie}
+\end{table}

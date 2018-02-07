@@ -1,0 +1,15 @@
+@startuml
+
+class AbstractSocket {
+	# stateSocket : StateSocket
+	# ENCODAGE : String = "UTF-8"
+}
+
+enum StateSocket {
+	+ CONNEXION : StateSocket
+	+ CONNECTED : StateSocket
+	+ ERROR : StateSocket
+	+ KILL : StateSocket
+}
+
+@enduml

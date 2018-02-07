@@ -1,0 +1,83 @@
+@startuml
+	
+class ObjectManager <<S,Singleton>> {
+	- instance : ObjectManager
+	- brain : brain
+	- treasureList : <ArrayList>
+	- rumList : <ArrayList>
+	- ObjectManager(Brain)
+	- initGameObjects() : void
+	- initTreasure() : void
+	- initRumList() : void
+	+ getInstance(Brain) : ObjectManager
+	+ getRumList() : ArrayList<Rum>
+	+ getTreasureList() : ArrayList<Treasure>
+	+ setRumList(ArrayList<Rum>) : void
+	+ setTreasureList(ArrayList<Treasure>) : void
+	+ onInitAll()
+	+ onNewConnection() : void
+	+ getObjectsList()
+	+ getObjectsInPosition(p : Position)
+	+ gameObjectEven(g : GameObject, even : int)
+	+ onPirateDead(p : Pirate)
+	+ onRumDrunk(rum : Rum)
+	+ onRumReappear(rum : Rum)
+	+ onTreasureFound(treasure : Treasure)
+	+ onRemovePirate(port : int)
+}
+
+
+Abstract GameObject {
+	- visible : boolean
+	- type : GameObjectType
+	- position : Position
+	+ GameObject(Position, boolean)
+	+ isVisible() : boolean
+	+ setVisible(boolean) : void
+	+ getPosition() : Position
+	+ setPosition(Position) : void
+	+ getType() : GameObjectType
+	+ setType(GameObjectType) : void
+}
+
+Enum GameObjectType {
+	TREASURE : GameObjectType
+	RUM : GameObjectType
+}
+
+class Treasure {
+	- discovered : boolean
+	+ Treasure(Position, boolean)
+	+ isDiscovered() : boolean
+	+ setDiscovered(boolean) : void
+}
+
+class Rhum {
+	- energy : Energy
+	+ Rum(Position, boolean, int)
+	+ getEnergy() : Energy
+	+ setEnergy(Energy) : void
+}	
+
+Class Position{
+	- positionX : int
+	- positionY : int
+	+ Positiont(int, int)
+	+ Position(Position)
+	+ isEquals(Position) : boolean
+	+ getPositionX() : int
+	+ getPositionY() : int
+	+ setPositionX(int) : void
+	+ setPositionY(int) : void
+
+}
+
+	GameObject --"1" GameObjectType
+	Treasure "1"-- ObjectManager
+	Rhum "0..*"-- ObjectManager
+	GameObject <|-down- Treasure
+	GameObject <|-down- Rhum
+	GameObject --"1" Position		
+
+
+@enduml
